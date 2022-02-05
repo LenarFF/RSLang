@@ -3,7 +3,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --env develop",
-    "lint": "eslint src & webpack",
+    "lint": "eslint src --fix",
     "prettier": "prettier --write src"
   },
   "devDependencies": {

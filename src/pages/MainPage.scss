@@ -1,0 +1,27 @@
+@import '../variables/colorVariables';
+
+.start-page {
+  flex-grow: 1;
+  background-color: rgba(15, 166, 236);
+  color: $lightFontColor;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  &__title {
+    font-size: 60px;
+  }
+  &__description {
+    font-size: 28px;
+  }
+  &__team-cards {
+    display: flex;
+    width: 750px;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  &__team-title {
+    margin-bottom: 40px;
+    font-size: 38px;
+  }
+}
