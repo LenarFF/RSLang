@@ -1,14 +1,10 @@
 import { routing } from './router';
-import { Aside } from './asideMenu';
-import { MainPage } from '../pages/mainPage';
+import { Aside } from './AsideMenu';
 
 export class App {
-  constructor() {
-    const aside = new Aside(document.body, 'aside', 'aside', '');
-    const mainPage = new MainPage(document.body, 'main', 'main', 'MAIN-PAGE');
-  }
+  aside = new Aside(document.body, 'aside', 'aside', '');
 
-  static enableRouteChange(): void {
+  enableRouteChange = () : void => {
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
       const currentRoute = routing.find((p) => p.name === currentRouteName);
@@ -19,5 +15,8 @@ export class App {
         defaultRoute.component();
       }
     };
-  }
+
+    const popsatateEvent = new Event('popstate');
+    window.dispatchEvent(popsatateEvent);
+  };
 }

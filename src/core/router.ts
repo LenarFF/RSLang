@@ -1,8 +1,8 @@
-import { MainPage } from '../pages/mainPage';
-import { ElectronicTextbook } from '../pages/textbookPage';
-import { AuthorizationPage } from '../pages/authorizationPage';
-import { StatisticsPage } from '../pages/statisticsPage';
-import { GamesPage } from '../pages/gamesPage';
+import { MainPage } from '../pages/MainPage';
+import { ElectronicTextbook } from '../pages/TextbookPage';
+import { AuthorizationPage } from '../pages/AuthorizationPage';
+import { StatisticsPage } from '../pages/StatisticsPage';
+import { GamesPage } from '../pages/GamesPage';
 import { Control } from './controls';
 
 interface IRoute {
