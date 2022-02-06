@@ -28,6 +28,7 @@ class DeveloperCard extends Control {
     this.devName = new Control(this.github.node, 'p', 'developer-card__name', name);
 
     this.photo.node.setAttribute('src', `./img/${photo}.jpg`);
+    this.photo.node.setAttribute('alt', name);
     this.github.node.setAttribute('href', githubHref);
     this.github.node.setAttribute('target', '_blank');
 
