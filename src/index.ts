@@ -1,4 +1,4 @@
-import { MainPage } from './pages/MainPage';
+import { MainPage } from './pages/MainPage/MainPage';
 import './styles.scss';
 
 const root = document.getElementById('root');

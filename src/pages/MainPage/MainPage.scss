@@ -1,6 +1,6 @@
-@import '../variables/colorVariables';
+@import '../../variables/colorVariables';
 
-.start-page {
+.main-page {
   flex-grow: 1;
   background-color: rgba(15, 166, 236);
   color: $lightFontColor;
@@ -14,11 +14,19 @@
   &__description {
     font-size: 28px;
   }
+  &__opportunities {
+    display: flex;
+    justify-content: center;
+  }
   &__team-cards {
     display: flex;
     width: 750px;
     justify-content: space-between;
     margin: 0 auto;
+    @media (max-width: 800px) {
+      width: 450px;
+      flex-direction: column;
+    }
   }
   &__team-title {
     margin-bottom: 40px;
