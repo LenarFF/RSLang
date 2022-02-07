@@ -1,5 +1,5 @@
 import { Footer } from './components/Footer/Footer';
-import { MainPage } from './pages/MainPage/MainPage';
+import { MainPage } from './pages/MainPage/main-Page';
 import './styles.scss';
 
 const root = document.getElementById('root');
