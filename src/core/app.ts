@@ -16,7 +16,7 @@ export class App {
       }
     };
 
-    const popsatateEvent = new Event('popstate');
-    window.dispatchEvent(popsatateEvent);
+    const popstateEvent = new Event('popstate');
+    window.dispatchEvent(popstateEvent);
   };
 }
