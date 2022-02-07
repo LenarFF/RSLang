@@ -1,9 +1,5 @@
-import { Footer } from './components/Footer/Footer';
-import { MainPage } from './pages/MainPage/main-Page';
-import './styles.scss';
+import { App } from './core/app';
+import './style.scss';
 
-const root = document.getElementById('root');
-if (root) {
-  new MainPage(root);
-  new Footer(root);
-}
+const app = new App();
+app.enableRouteChange();
