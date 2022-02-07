@@ -15,7 +15,7 @@ class Footer extends Control {
     this.logo.node.setAttribute('title', 'RSSchool');
     this.logo.node.setAttribute('href', 'https://rs.school/js/');
     this.logo.node.setAttribute('target', '_blank');
-    
+
     developers.map((dev) => {
       const li = new Control(this.githubs.node, 'li', 'footer__githubs-li');
       const a = new Control(li.node, 'a', 'footer__githubs-link', dev.github).node;
