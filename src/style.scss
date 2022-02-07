@@ -13,7 +13,7 @@ body {
   font-size: 1.1em;
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: space-between;
 }
 .main {
@@ -26,6 +26,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 300px;
+  position: absolute;
+  top: 0;
 }
 .nav {
   padding-top: 30px;

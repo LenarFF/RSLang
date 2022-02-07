@@ -4,6 +4,7 @@ import { Footer } from '../components/Footer/Footer';
 
 export class App {
   aside = new Aside(document.body, 'aside', 'aside', '');
+
   footer = new Footer(document.body);
 
   enableRouteChange = (): void => {

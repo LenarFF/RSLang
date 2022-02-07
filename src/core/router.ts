@@ -3,7 +3,7 @@ import { ElectronicTextbook } from '../pages/textbook-page';
 import { AuthorizationPage } from '../pages/authorization-page';
 import { StatisticsPage } from '../pages/statistics-page';
 import { GamesPage } from '../pages/games-page';
-import { Control } from './controls';
+import { Control } from '../components/Control';
 
 interface IRoute {
   name: string;
@@ -15,8 +15,8 @@ export const routing: IRoute[] = [
   {
     name: 'electronic-textbook',
     component: ():void => {
-      if (document.body.children[1]) {
-        document.body.children[1].remove();
+      if (document.body.children[2]) {
+        document.body.children[2].remove();
       }
       const electronicTextbook = new
       ElectronicTextbook(document.body, 'main', 'main electronic-textbook', 'ELECTRONIC-TEXTBOOK');
@@ -26,8 +26,8 @@ export const routing: IRoute[] = [
   {
     name: 'authorization',
     component: ():void => {
-      if (document.body.children[1]) {
-        document.body.children[1].remove();
+      if (document.body.children[2]) {
+        document.body.children[2].remove();
       }
       const authorization = new
       AuthorizationPage(document.body, 'main', 'main authorization-page', 'AUTHORIZATION-PAGE');
@@ -37,8 +37,8 @@ export const routing: IRoute[] = [
   {
     name: 'mini-game',
     component: ():void => {
-      if (document.body.children[1]) {
-        document.body.children[1].remove();
+      if (document.body.children[2]) {
+        document.body.children[2].remove();
       }
       const miniGame = new GamesPage(document.body, 'main', 'main mini-game', 'MINI-GAME');
       routingPagesElements.push(miniGame);
@@ -47,8 +47,8 @@ export const routing: IRoute[] = [
   {
     name: 'statistics',
     component: ():void => {
-      if (document.body.children[1]) {
-        document.body.children[1].remove();
+      if (document.body.children[2]) {
+        document.body.children[2].remove();
       }
       const statistics = new StatisticsPage(document.body, 'main', 'main statistics-page', 'STATISTICS');
       routingPagesElements.push(statistics);
@@ -57,8 +57,8 @@ export const routing: IRoute[] = [
   {
     name: 'main-page',
     component: ():void => {
-      if (document.body.children[1]) {
-        document.body.children[1].remove();
+      if (document.body.children[2]) {
+        document.body.children[2].remove();
       }
       const mainPage = new MainPage(document.body);
       window.location.hash = '#main-page';
