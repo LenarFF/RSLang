@@ -16,7 +16,7 @@ class Footer extends Control {
     this.logo.node.setAttribute('target', '_blank');
     developers.map((dev) => {
       const li = new Control(this.githubs.node, 'li', 'footer__githubs-li');
-      const a = new Control(li.node, 'a', 'footer__githubs-link', dev.name).node;
+      const a = new Control(li.node, 'a', 'footer__githubs-link', dev.github).node;
       a.setAttribute('href', dev.githubHref);
       a.setAttribute('target', '_blank');
       return li;

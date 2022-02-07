@@ -5,7 +5,7 @@ export const opportunities = [
     description: 'Учите новые слова, отмечайте сложные и выученные',
   },
   {
-    titleName: 'Спринт',
+    titleName: 'Игры',
     imageName: 'game',
     description: 'Играйте и учите слова',
   },
