@@ -1,4 +1,4 @@
-import { Control } from './controls';
+import { Control } from '../components/Control';
 
 const asideContent = `
 <nav class="nav">
@@ -15,6 +15,7 @@ const asideContent = `
 export class Aside extends Control {
   constructor(parentNode: HTMLElement, tagName: string, className: string, content: string) {
     super(parentNode, tagName, className, content);
+
     this.node.insertAdjacentHTML('afterbegin', asideContent);
   }
 }

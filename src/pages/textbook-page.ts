@@ -1,4 +1,4 @@
-import { Control } from '../core/controls';
+import { Control } from '../components/Control';
 
 export class ElectronicTextbook extends Control {
 }

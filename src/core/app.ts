@@ -1,10 +1,13 @@
 import { routing } from './router';
-import { Aside } from './AsideMenu';
+import { Aside } from './aside-menu';
+import { Footer } from '../components/Footer/Footer';
 
 export class App {
   aside = new Aside(document.body, 'aside', 'aside', '');
 
-  enableRouteChange = () : void => {
+  footer = new Footer(document.body);
+
+  enableRouteChange = (): void => {
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
       const currentRoute = routing.find((p) => p.name === currentRouteName);

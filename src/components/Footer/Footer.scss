@@ -1,0 +1,52 @@
+@import '../../variables/colorVariables';
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  background-color: rgb(58, 58, 165);
+  align-items: center;
+  color: $lightFontColor;
+  &__logo {
+    background-image: url(../../assets/img/rss.svg);
+    background-position: center;
+    background-size: cover;
+    width: 110px;
+    height: 40px;
+    cursor: pointer;
+  }
+  &__year {
+    font-size: 26px;
+  }
+  &__githubs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    list-style: none;
+    &-li {
+      cursor: pointer;
+    }
+    &-link {
+      color: inherit;
+      text-decoration: none;
+      width: 160px;
+      display: flex;
+      gap: 10px;;
+      align-items: center;
+      transition: color 0.3s;
+      &:hover {
+        color: $darkFontColor;
+      }
+      &::before {
+        content: '';
+        background-image: url(../../assets/img/github.svg);
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+}

@@ -1,67 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
 }
 li {
-	list-style-type: none;
+  list-style-type: none;
 }
 body {
-	display: flex;
-	font-size: 1.1em;
+  font-size: 1.1em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
 }
 .main {
-	width: calc(100% - 150px);
-	height: 100vh;
-	padding: 5px;
-	background-color: rgba(211, 206, 206, 0.521);
+  width: calc(100% - 150px);
+  height: 100vh;
+  padding: 5px;
+  background-color: rgba(211, 206, 206, 0.521);
 }
 .aside {
-	display: flex;
-	flex-direction: column;
-	width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  position: absolute;
+  top: 0;
 }
 .nav {
-	padding-top: 30px;
-	padding-left: 10px;
+  padding-top: 30px;
+  padding-left: 10px;
 }
 .menu-item {
-	background-position: left;
-	background-repeat: no-repeat;
-	background-size: 10%;
-	padding-top: 7px;
-	padding-bottom: 7px;
-	padding-left: 40px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 10%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 40px;
 }
 .item-main {
-	background-image: url(../public/svg/main.svg);
+  background-image: url(../public/svg/main.svg);
 }
 .item-textbook {
-	background-image: url(../public/svg/textbook.svg);
+  background-image: url(../public/svg/textbook.svg);
 }
 .item-authorization {
-	background-image: url(../public/svg/authorization.svg);
+  background-image: url(../public/svg/authorization.svg);
 }
 .item-game {
-	background-image: url(../public/svg/game.svg);
+  background-image: url(../public/svg/game.svg);
 }
 .item-statistics {
-	background-image: url(../public/svg/statistics.svg);
+  background-image: url(../public/svg/statistics.svg);
 }
 /* #region temp */
 .electronic-textbook {
-	background-color: rgb(129, 138, 138);
+  background-color: rgb(129, 138, 138);
 }
 .statistics-page {
-	background-color: rgb(48, 228, 228);
+  background-color: rgb(48, 228, 228);
 }
 .mini-game {
-	background-color: rgb(176, 77, 201);
+  background-color: rgb(176, 77, 201);
 }
 .main-page {
-	background-color: rgb(95, 128, 20);
+  background-color: rgb(95, 128, 20);
 }
 .authorization-page {
-	background-color: rgb(159, 189, 109);
+  background-color: rgb(159, 189, 109);
 }
 /* #endregion temp */
