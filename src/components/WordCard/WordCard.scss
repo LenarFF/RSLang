@@ -1,0 +1,22 @@
+.word-card {
+  height: 300px;
+  display: flex;
+  text-align: left;
+  &__img-wrap {
+    height: 210px;
+    width: 290px;
+    overflow: hidden;
+  }
+  &__img {
+    height: 210px;
+  }
+  &__audio {
+    width: 30px;
+    height: 30px;
+    background-image: url(../../assets/img/audio.png);
+    background-position: center;
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+  }
+}

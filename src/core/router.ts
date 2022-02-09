@@ -1,5 +1,5 @@
 import { MainPage } from '../pages/main-page/main-page';
-import { ElectronicTextbook } from '../pages/textbook-page';
+import { TextbookPage } from '../pages/textbook-page/textbook-page';
 import { AuthorizationPage } from '../pages/authorization-page';
 import { StatisticsPage } from '../pages/statistics-page';
 import { GamesPage } from '../pages/games-page';
@@ -18,8 +18,7 @@ export const routing: IRoute[] = [
       if (document.body.children[2]) {
         document.body.children[2].remove();
       }
-      const electronicTextbook = new
-      ElectronicTextbook(document.body, 'main', 'main electronic-textbook', 'ELECTRONIC-TEXTBOOK');
+      const electronicTextbook = new TextbookPage(document.body);
       routingPagesElements.push(electronicTextbook);
     },
   },

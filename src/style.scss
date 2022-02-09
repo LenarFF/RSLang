@@ -6,18 +6,15 @@
   box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 }
-li {
-  list-style-type: none;
-}
+
 body {
   font-size: 1.1em;
-  height: 100vh;
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
 }
 .main {
-  width: calc(100% - 150px);
+  // width: calc(100% - 150px);
   height: 100vh;
   padding: 5px;
   background-color: rgba(211, 206, 206, 0.521);
@@ -57,9 +54,7 @@ body {
   background-image: url(../public/svg/statistics.svg);
 }
 /* #region temp */
-.electronic-textbook {
-  background-color: rgb(129, 138, 138);
-}
+
 .statistics-page {
   background-color: rgb(48, 228, 228);
 }
