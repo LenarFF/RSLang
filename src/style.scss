@@ -4,20 +4,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
   font-size: 1.1em;
-  display: flex;
-  flex-direction: column-reverse;
+  height: 100vh;
   justify-content: space-between;
 }
 .main {
-  // width: calc(100% - 150px);
   height: 100vh;
   padding: 5px;
-  background-color: rgba(211, 206, 206, 0.521);
 }
 .aside {
   display: flex;
@@ -53,18 +50,3 @@ body {
 .item-statistics {
   background-image: url(../public/svg/statistics.svg);
 }
-/* #region temp */
-
-.statistics-page {
-  background-color: rgb(48, 228, 228);
-}
-.mini-game {
-  background-color: rgb(176, 77, 201);
-}
-.main-page {
-  background-color: rgb(95, 128, 20);
-}
-.authorization-page {
-  background-color: rgb(159, 189, 109);
-}
-/* #endregion temp */
