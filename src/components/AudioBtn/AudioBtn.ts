@@ -4,6 +4,7 @@ import './AudioBtn.scss';
 
 class AudioBtn extends Control {
   isPlay = false;
+
   audio: HTMLAudioElement | undefined;
 
   constructor(parent: HTMLElement, audioSrc: string[]) {
@@ -12,7 +13,7 @@ class AudioBtn extends Control {
     this.node.addEventListener('click', () => this.handleAudio(audioSrc));
   }
 
-  playAudio(audioSrc: string[]) {
+  playAudio(audioSrc: string[]): void {
     this.node.classList.add('audio_pause');
     let index = 0;
     this.audio = new Audio(`${baseURL}/${audioSrc[index]}`);
@@ -28,7 +29,7 @@ class AudioBtn extends Control {
     this.isPlay = true;
   }
 
-  stopAudio() {
+  stopAudio(): void {
     if (!this.audio) return;
     this.node.classList.remove('audio_pause');
     this.audio.pause();
@@ -36,7 +37,7 @@ class AudioBtn extends Control {
     this.isPlay = false;
   }
 
-  handleAudio(audioSrc: string[]) {
+  handleAudio(audioSrc: string[]): void {
     if (this.isPlay) {
       this.stopAudio();
     } else {

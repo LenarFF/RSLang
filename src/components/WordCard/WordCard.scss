@@ -1,12 +1,12 @@
 @import '../../variables/colorVariables';
 
 .word-card {
-  height: 300px;
   display: flex;
   text-align: left;
   width: 800px;
   margin: 10px;
   justify-content: space-between;
+  border: 2px solid transparent;
   &_1 {
     background-color: $groupBg1;
   }
@@ -25,17 +25,53 @@
   &_6 {
     background-color: $groupBg6;
   }
+  &_difficult {
+    border: 2px solid #c40404;
+  }
+  &_studied {
+    border: 2px solid #12c412;
+  }
   &__img-wrap {
     height: 210px;
     width: 290px;
     overflow: hidden;
+    margin: 5px;
   }
   &__img {
     height: 210px;
-    margin: 5px;
   }
   &__text {
     width: 500px;
+    font-size: 16px;
+    &-en {
+      margin-top: 5px;
+    }
+  }  
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__word-wrap {
+    display: flex;
+    gap: 10px;
+  }
+  &__difficult-btn,
+  &__studied-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-size: 20px 20px;
+    border: none;
+    background-color: inherit;
+  }
+  &__difficult-btn {
+    background-image: url(../../assets/img/difficult.png);
+  }
+  &__studied-btn {
+    background-image: url(../../assets/img/studied.png);
   }
 
 }

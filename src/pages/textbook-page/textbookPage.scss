@@ -8,7 +8,7 @@
     display: flex;
     width: 150px;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 20px auto;
   }
   &__left-btn,
   &__right-btn {
@@ -58,6 +58,28 @@
       &_6 {
         background-color: $groupBg6;
       }
+    }
+  }
+  &__games {
+    position: fixed;
+    top: 80%;
+    right: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $darkFontColor;
+      text-decoration: none;
+      font-size: 14px;
+      width: 100px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid #000000;
     }
   }
 }
