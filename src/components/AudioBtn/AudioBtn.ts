@@ -7,14 +7,13 @@ class AudioBtn extends Control {
   audio: HTMLAudioElement | undefined;
 
   constructor(parent: HTMLElement, audioSrc: string[]) {
-    super(parent, 'button', 'word-card__audio');
+    super(parent, 'button', 'audio');
 
-    this.node.addEventListener('click', () =>
-      this.handleAudio(audioSrc))
+    this.node.addEventListener('click', () => this.handleAudio(audioSrc));
   }
 
-    playAudio(audioSrc: string[]) {
-    this.node.classList.add('word-card__audio_pause');
+  playAudio(audioSrc: string[]) {
+    this.node.classList.add('audio_pause');
     let index = 0;
     this.audio = new Audio(`${baseURL}/${audioSrc[index]}`);
     this.audio.play();
@@ -31,7 +30,7 @@ class AudioBtn extends Control {
 
   stopAudio() {
     if (!this.audio) return;
-    this.node.classList.remove('word-card__audio_pause');
+    this.node.classList.remove('audio_pause');
     this.audio.pause();
     this.audio.currentTime = 0;
     this.isPlay = false;

@@ -10,16 +10,5 @@
   &__img {
     height: 210px;
   }
-  &__audio {
-    width: 30px;
-    height: 30px;
-    background-image: url(../../assets/img/audio.png);
-    background-position: center;
-    background-size: cover;
-    border: none;
-    cursor: pointer;
-    &_pause {
-      background-image: url(../../assets/img/pause.png)
-    }
-  }
+
 }

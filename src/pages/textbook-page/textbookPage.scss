@@ -2,4 +2,25 @@
   margin: 0 auto;
   max-width: 1400px;
   text-align: center;
+  &__pages {
+    display: flex;
+    width: 150px;
+    justify-content: space-between;
+      margin: 0 auto;
+  }
+  &__left-btn,
+  &__right-btn {
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  &__left-btn {
+    background-image: url(../../assets/img/arrow-left.png);
+  }
+  &__right-btn {
+    background-image: url(../../assets/img/arrow-right.png);
+  }
 }

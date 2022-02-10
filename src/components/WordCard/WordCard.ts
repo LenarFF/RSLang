@@ -43,7 +43,7 @@ class WordCard extends Control {
       this.text.node,
       'p',
       'word-card__translate',
-      `Translate: ${wordTranslate}`,
+      `Перевод: ${wordTranslate}`,
     );
 
     this.meaning = new Control(this.text.node, 'p', 'word-card__meaning');
