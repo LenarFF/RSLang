@@ -18,5 +18,8 @@
     background-size: cover;
     border: none;
     cursor: pointer;
+    &_pause {
+      background-image: url(../../assets/img/pause.png)
+    }
   }
 }
