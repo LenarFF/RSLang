@@ -4,7 +4,6 @@
   display: flex;
   justify-content: space-around;
   height: 60px;
-  margin-top: -60px;
   background-color: rgb(58, 58, 165);
   align-items: center;
   color: $lightFontColor;
@@ -33,7 +32,7 @@
       text-decoration: none;
       width: 160px;
       display: flex;
-      gap: 10px;
+      gap: 10px;;
       align-items: center;
       transition: color 0.3s;
       &:hover {

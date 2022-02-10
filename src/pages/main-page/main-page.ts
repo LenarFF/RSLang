@@ -26,13 +26,10 @@ class MainPage extends Control {
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'main-page');
     developers.map(
-      (dev) =>
-        new DeveloperCard(this.cards.node, dev.photo, dev.name, dev.description, dev.githubHref),
+      (dev) => new DeveloperCard(this.cards.node, dev.photo, dev.name, dev.description, dev.githubHref),
     );
-    opportunities.map(
-      (item) =>
-        new Opportunity(this.opportunities.node, item.titleName, item.imageName, item.description),
-    );
+    opportunities.map((item) => new Opportunity(this.opportunities.node,
+      item.titleName, item.imageName, item.description));
   }
 }
 
