@@ -78,7 +78,7 @@ export class TextbookPage extends Control {
   }
 
   handleRight(): void {
-    if (this.page >= MAX_PAGES) return;
+    if (this.page >= MAX_PAGES - 1) return;
     this.page++;
     this.counter.node.innerText = String(this.page + 1);
     this.renderCards();
