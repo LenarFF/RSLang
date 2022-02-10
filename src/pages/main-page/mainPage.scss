@@ -1,13 +1,14 @@
 @import '../../variables/colorVariables';
 
 .main-page {
+  height: calc(100vh - 60px);
   flex-grow: 1;
   background-color: #257b83;
   color: $lightFontColor;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-evenly;  
   &__title {
     font-size: 60px;
   }
