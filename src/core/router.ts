@@ -1,8 +1,8 @@
 import { MainPage } from '../pages/main-page/main-page';
-import { ElectronicTextbook } from '../pages/textbook-page/textbook-page';
-import { AuthorizationPage } from '../pages/authorization-page/authorization-page';
-import { StatisticsPage } from '../pages/statistics-page/statistics-page';
-import { GamesPage } from '../pages/games-page/games-page';
+import { TextbookPage } from '../pages/textbook-page/textbook-page';
+import { AuthorizationPage } from '../pages/authorization-page';
+import { StatisticsPage } from '../pages/statistics-page';
+import { GamesPage } from '../pages/games-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
 
@@ -16,13 +16,9 @@ export const routing: IRoute[] = [
   {
     name: 'electronic-textbook',
     component: (): void => {
-      const electronicTextbook = new ElectronicTextbook(
-        document.body,
-        'main',
-        'main electronic-textbook',
-        'ELECTRONIC-TEXTBOOK',
-      );
+      const electronicTextbook = new TextbookPage(document.body);
       const footer = new Footer(document.body);
+
       routingPagesElements.push(electronicTextbook);
       routingPagesElements.push(footer);
     },
