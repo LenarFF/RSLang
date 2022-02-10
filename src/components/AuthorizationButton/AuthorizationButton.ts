@@ -4,7 +4,9 @@ import './AuthorizationButton.scss'
 export class AuthorizationButton extends Control {
   authorizationButton = new Control(this.node, 'div', 'authorization-button');
   authorizationButtonSVG = new Control(this.authorizationButton.node, 'svg', 'authorization-svg');
-  authorizationButtonPath = new Control(this.authorizationButtonSVG.node, 'path', '');
+  authorizationButtonPath = new Control(this.authorizationButtonSVG.node, 'path');
+
+  
 
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'authorization');
@@ -12,5 +14,13 @@ export class AuthorizationButton extends Control {
     this.authorizationButtonPath.node.setAttribute('fill','#fff');
     this.authorizationButtonSVG.node.setAttribute('xmlns','http://www.w3.org/2000/svg');
     this.authorizationButtonSVG.node.setAttribute('viewBox','0 0 512 512');
+
+    this.authorizationButton.node.onclick = () => {
+      console.log('AuthorizationButton');
+      document.querySelector('.form-container')?.classList.toggle('form-container__active');
+    }
+
   }
+
+
 }

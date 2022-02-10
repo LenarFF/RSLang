@@ -12,8 +12,8 @@ const asideContent = `
 `;
 
 export class Aside extends Control {
-  constructor(parentNode: HTMLElement, tagName: string, className: string, content: string) {
-    super(parentNode, tagName, className, content);
+  constructor(parentNode: HTMLElement, tagName: string, className: string) {
+    super(parentNode, tagName, className);
 
     this.node.insertAdjacentHTML('afterbegin', asideContent);
   }
