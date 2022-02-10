@@ -1,7 +1,30 @@
+@import '../../variables/colorVariables';
+
 .word-card {
   height: 300px;
   display: flex;
   text-align: left;
+  width: 800px;
+  margin: 10px;
+  justify-content: space-between;
+  &_1 {
+    background-color: $groupBg1;
+  }
+  &_2 {
+    background-color: $groupBg2;
+  }
+  &_3 {
+    background-color: $groupBg3;
+  }
+  &_4 {
+    background-color: $groupBg4;
+  }
+  &_5 {
+    background-color: $groupBg5;
+  }
+  &_6 {
+    background-color: $groupBg6;
+  }
   &__img-wrap {
     height: 210px;
     width: 290px;
@@ -9,6 +32,10 @@
   }
   &__img {
     height: 210px;
+    margin: 5px;
+  }
+  &__text {
+    width: 500px;
   }
 
 }

@@ -17,8 +17,8 @@ class WordCard extends Control {
   example: Control;
   exampleTranslate: Control;
 
-  constructor(parent: HTMLElement, wordInfo: IWord) {
-    super(parent, 'div', 'word-card');
+  constructor(parent: HTMLElement, wordInfo: IWord, group: number) {
+    super(parent, 'div', `word-card word-card_${group + 1}`);
     const {
       word,
       image,
