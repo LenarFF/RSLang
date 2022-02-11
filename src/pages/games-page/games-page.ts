@@ -1,4 +1,5 @@
 import { Control } from '../../components/Control';
+import { Href } from '../../constants/router-refs';
 import './gamesPage.scss';
 
 export class GamesPage extends Control {
@@ -8,7 +9,7 @@ export class GamesPage extends Control {
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'main mini-game');
-    this.sprint.node.innerHTML = '<a href="#mini-game/sprint">SPRINT</a>';
-    this.audio.node.innerHTML = '<a href="#mini-game/audio">AUDIO</a>';
+    this.sprint.node.innerHTML = `<a href="${Href.SPRINT}">SPRINT</a>`;
+    this.audio.node.innerHTML = `<a href="${Href.AUDIO}">AUDIO</a>`;
   }
 }
