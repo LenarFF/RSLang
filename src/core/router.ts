@@ -3,6 +3,8 @@ import { TextbookPage } from '../pages/textbook-page/textbook-page';
 import { AuthorizationPage } from '../pages/authorization-page/authorization-page';
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
+import { SprintPage } from '../pages/sprint-page/sprint-page';
+import { AudioPage } from '../pages/audio-page/audio-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
 
@@ -40,8 +42,22 @@ export const routing: IRoute[] = [
   {
     name: 'mini-game',
     component: (): void => {
-      const miniGame = new GamesPage(document.body, 'main', 'main mini-game', 'MINI-GAME');
+      const miniGame = new GamesPage(document.body);
       routingPagesElements.push(miniGame);
+    },
+  },
+  {
+    name: 'mini-game/sprint',
+    component: (): void => {
+      const sprintGame = new SprintPage(document.body);
+      routingPagesElements.push(sprintGame);
+    },
+  },
+  {
+    name: 'mini-game/audio',
+    component: (): void => {
+      const audioGame = new AudioPage(document.body);
+      routingPagesElements.push(audioGame);
     },
   },
   {

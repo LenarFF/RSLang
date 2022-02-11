@@ -45,8 +45,8 @@ export class TextbookPage extends Control {
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
     this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
-    this.sprintBtn.node.setAttribute('href', '#mini-game');
-    this.challengeBtn.node.setAttribute('href', '#mini-game');
+    this.sprintBtn.node.setAttribute('href', '#mini-game/sprint');
+    this.challengeBtn.node.setAttribute('href', '#mini-game/audio');
   }
 
   async renderCards(): Promise<void> {
