@@ -1,0 +1,19 @@
+.answer-card {
+  &__img {
+    height: 200px;    
+  }
+  &__wordWrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &__play {
+    background-image: url(../../assets/img/play.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+}

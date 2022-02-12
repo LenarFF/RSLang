@@ -1,0 +1,31 @@
+.challenge-page {
+  background-color: rgb(0, 140, 255);
+
+  height: 100vh;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 1400px;
+    margin: 0 auto;
+  }
+  &__audio-img {
+    background-image: url(../../assets/img/audio.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60px 60px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: #ffffff;
+  }
+  &__variant-btn {
+    &_right {
+      color: rgb(5, 109, 5)
+    }
+    &_wrong {
+      color: rgb(149, 10, 10)
+    }
+  }
+}
