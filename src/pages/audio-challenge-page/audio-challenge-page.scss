@@ -5,10 +5,16 @@
   &__container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 1400px;
-    margin: 0 auto;
+    height: 100%;
+    gap: 50px;
+  }
+  &__top {
+    height: 300px;
+    display: flex;
+    align-items: center;
   }
   &__audio-img {
     background-image: url(../../assets/img/audio.png);
@@ -20,12 +26,28 @@
     border-radius: 100%;
     background-color: #ffffff;
   }
-  &__variant-btn {
+  &__variants {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  &__variant-btn,
+  &__control-btn {
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 150px;
+    padding: 5px;
+    cursor: pointer;
     &_right {
-      color: rgb(5, 109, 5)
+      color: rgb(5, 109, 5);
     }
     &_wrong {
-      color: rgb(149, 10, 10)
+      color: rgb(149, 10, 10);
     }
   }
 }

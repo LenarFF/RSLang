@@ -9,8 +9,11 @@ class AudioChallengePage extends Control {
   words: IWord[];
   answers: IWord[];
   answerBtns: HTMLElement[];
+  rightAnswers: IWord[];
+  wrongAnswers: IWord[];
   currentQuestion = 0;
   answersQuantity = 5;
+  answerCard: AnswerCard | null;
   container = new Control(this.node, 'div', 'challenge-page__container');
   top = new Control(this.container.node, 'div', 'challenge-page__top');
   audioImg = new Control(this.top.node, 'div', 'challenge-page__audio-img');
@@ -22,10 +25,15 @@ class AudioChallengePage extends Control {
     this.words = [];
     this.answers = [];
     this.answerBtns = [];
+    this.rightAnswers = [];
+    this.wrongAnswers = [];
+    this.answerCard = null;
     this.getAllWords(group);
 
-    this.controlBtn.node.addEventListener('click', () => this.showNextQuestion());
-    this.variants.node.addEventListener('click', (e) => this.showRightAnswer(e));
+    this.controlBtn.node.setAttribute('data-next', 'false');
+
+    this.controlBtn.node.addEventListener('click', () => this.handleControl());
+    this.variants.node.addEventListener('click', (e) => this.handleAnswer(e));
   }
 
   showNextQuestion(): void {
@@ -33,11 +41,21 @@ class AudioChallengePage extends Control {
     this.currentQuestion++;
     this.variants.node.innerHTML = '';
     this.answers = [];
+    this.answerBtns = [];
     this.getAnswers();
     this.top.node.innerHTML = '';
     this.audioImg = new Control(this.top.node, 'div', 'challenge-page__audio-img');
     this.enableBtn(this.answerBtns);
     this.controlBtn.node.innerText = 'не знаю';
+    this.controlBtn.node.setAttribute('data-next', 'false');
+  }
+
+  handleControl() {
+    if (this.controlBtn.node.dataset.next === 'true') {
+      this.showNextQuestion();
+    } else {
+      this.showRightAnswer(this.words[this.currentQuestion]);
+    }
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)) {
@@ -81,30 +99,34 @@ class AudioChallengePage extends Control {
 
   getRandomNum = (max: number): number => Math.floor(Math.random() * max);
 
-  showRightAnswer = (e: MouseEvent) => {
+  showRightAnswer(rightAnswer: IWord) {
+    const rightBtns = this.answerBtns.filter(
+      (btn) => (btn as HTMLElement).dataset.word === rightAnswer.word,
+    );
+    rightBtns[0].classList.add('challenge-page__variant-btn_right');
+    this.controlBtn.node.innerText = 'следующий';
+    this.controlBtn.node.setAttribute('data-next', 'true');
+    this.audioImg.destroy();
+    this.answerCard = new AnswerCard(this.top.node, rightAnswer);
+    this.disableBtn(this.answerBtns);
+  }
+
+  handleAnswer = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     const answer = target.dataset.word;
     const rightAnswer = this.words[this.currentQuestion];
-    const rightBtn = this.answerBtns.filter(
-      (btn) => (btn as HTMLElement).dataset.word === rightAnswer.word,
-    );    
     if (!answer) return;
-    if (answer !== rightAnswer.word) target.classList.add('challenge-page__variant-btn_wrong');
-    rightBtn[0].classList.add('challenge-page__variant-btn_right');
-    this.controlBtn.node.innerText = 'следующий';
-    this.audioImg.destroy();
-    new AnswerCard(this.top.node, rightAnswer);
-    this.disableBtn(this.answerBtns);
+    if (answer !== rightAnswer.word) {
+      target.classList.add('challenge-page__variant-btn_wrong');
+      this.wrongAnswers.push(rightAnswer);
+    } else {
+      this.rightAnswers.push(rightAnswer);
+    }
+    this.showRightAnswer(rightAnswer);
   };
 
-  disableBtn = (btns: HTMLElement[]) =>
-    btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
+  disableBtn = (btns: HTMLElement[]) => btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
 
-  enableBtn = (btns: HTMLElement[]) =>
-    btns.forEach((btn) => btn.removeAttribute('disabled'));
-
-  showAnswerCard() {
-    const cardWrap = new Control(this.top.node, 'div', 'challenge-page__card-wrap');
-  }
+  enableBtn = (btns: HTMLElement[]) => btns.forEach((btn) => btn.removeAttribute('disabled'));
 }
 export { AudioChallengePage };
