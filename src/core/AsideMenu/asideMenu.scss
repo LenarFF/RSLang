@@ -29,70 +29,70 @@
     cursor: pointer;
     transition: .5s;
   }
-}
-.menu-container .menu-item::before {
-  content: '';
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  width: 45px;
-  height: 45px;
-  border-radius: 22.5px;
-  background: #3a3aa5;
-  box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25),
-              inset 2px 2px 5px rgba(255, 255, 255, 0.2),
-              inset -3px -3px 5px rgba(0, 0, 0, 0.5);
-}
-.menu-container .menu-item:hover::before {
-  width: 100%;
-}
-.menu-container .menu-item .rank {
-  position: relative;
-  min-width: 45px;
-  height: 45px;
-  display: flex;
-	justify-content: center;
-	align-items: center;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-.menu-container .menu-item .rank::before {
-  content: '';
-  top: 4px;
-  position: absolute;
-  width: 37px;
-  height: 37px;
-  background: #257b83;
-  border-radius: 30px;
-  transform: scale(0);
-  transition: .5s;
-}
-.menu-container .menu-item:hover .rank::before {
-  transform: scale(1);
-}
-.menu-container .menu-item .rank span {
-  width: 28px;
-  height: 28px;
-  position: relative;
-  font-weight: 600;
-  color: #fff;
-  font-size: 1em;
-  transition: .5s;
-  background-size: contain;
-}
-.menu-container .menu-item .menu-name {
-  position: relative;
-  line-height: 1.15em;
-}
-.menu-container .menu-item .menu-name a {
-  font-weight: 600;
-  color: #bcbcc0;
-  transition: .5s;
-  width: 100%;
-}
-.menu-container .menu-item:hover .menu-name a {
-  color: #fff;
+  & .menu-item::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 22.5px;
+    background: #3a3aa5;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+  }
+  & .menu-item:hover::before {
+    width: 100%;
+  }
+  & .menu-item .rank {
+    position: relative;
+    min-width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  & .menu-item .rank::before {
+    content: '';
+    top: 4px;
+    position: absolute;
+    width: 37px;
+    height: 37px;
+    background: #257b83;
+    border-radius: 30px;
+    transform: scale(0);
+    transition: .5s;
+  }
+  & .menu-item:hover .rank::before {
+    transform: scale(1);
+  }
+  & .menu-item .rank span {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1em;
+    transition: .5s;
+    background-size: contain;
+  }
+  & .menu-item .menu-name {
+    position: relative;
+    line-height: 1.15em;
+  }
+  & .menu-item .menu-name a {
+    font-weight: 600;
+    color: #bcbcc0;
+    transition: .5s;
+    width: 100%;
+  }
+  & .menu-item:hover .menu-name a {
+    color: #fff;
+  }
 }
 .menu-ico__stat {
   background: url(../../../public/svg/statistics.svg) no-repeat center;
