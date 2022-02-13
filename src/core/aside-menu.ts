@@ -1,13 +1,42 @@
 import { Control } from '../components/Control';
 import { Href } from '../constants/router-refs';
+import './asideMenu.scss'
 
 const asideContent = `
 <nav class="nav">
-      <ul>
-        <li class="menu-item item-main"><a href="${Href.MAIN}">ГЛАВНАЯ</a></li>
-        <li class="menu-item item-textbook"><a href="${Href.BOOK}">УЧЕБНИК</a></li>
-        <li class="menu-item item-game"><a href="${Href.GAMES}">ИГРЫ</a></li>
-        <li class="menu-item item-statistics" ><a href="${Href.STAT}">СТАТИСТИКА</a></li>
+      <ul class="menu-container">
+        <div class="menu-item">
+          <div class="rank">
+            <span>1</span>
+          </div>
+          <div class="creator">
+            <a href="${Href.MAIN}">ГЛАВНАЯ</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="rank">
+            <span>2</span>
+          </div>
+          <div class="creator">
+            <a href="${Href.BOOK}">УЧЕБНИК</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="rank">
+            <span>3</span>
+          </div>
+          <div class="creator">
+            <a href="${Href.GAMES}">ИГРЫ</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="rank">
+            <span>4</span>
+          </div>
+          <div class="creator">
+            <a href="${Href.STAT}">СТАТИСТИКА</a>
+          </div>
+        </div>
       </ul>
 </nav>
 `;
