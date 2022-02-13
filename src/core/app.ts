@@ -1,5 +1,5 @@
 import { routing, defaultRoute } from './router';
-import { Aside } from './aside-menu';
+import { Aside } from './AsideMenu/aside-menu';
 import {AuthorizationButton} from '../components/AuthorizationButton/AuthorizationButton'
 
 export class App {

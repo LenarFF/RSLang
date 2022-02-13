@@ -54,7 +54,6 @@ export const routing: IRoute[] = [
         document.body,
         'main',
         'main statistics-page',
-        'STATISTICS',
       );
       const footer = new Footer(document.body);
       routingPagesElements.push(statistics);
