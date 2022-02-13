@@ -9,6 +9,7 @@
     min-width: 40px;
     height: 40px;
     background: #ff2c74;
+    transition: .4s all;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,5 +24,9 @@
       width: 22px;
       height: 22px;
     }
+  }
+  &-button__active {
+    background: #08ec08;
+    transition: .4s all;
   }
 }

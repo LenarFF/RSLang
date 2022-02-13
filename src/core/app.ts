@@ -1,12 +1,14 @@
 import { routing, defaultRoute } from './router';
 import { Aside } from './aside-menu';
-import { AuthorizationButton } from '../components/AuthorizationButton/AuthorizationButton'
-import { AuthorizationForm } from '../components/AuthorizationForm/AuthorizationForm'
+import { AuthorizationButton } from '../components/AuthorizationButton/AuthorizationButton';
+import { AuthorizationForm } from '../components/AuthorizationForm/AuthorizationForm';
 
 export class App {
   aside = new Aside(document.body, 'aside', 'aside');
-  authorizationButton = new AuthorizationButton(document.body);
+
   authorizationForm = new AuthorizationForm(document.body);
+
+  authorizationButton = new AuthorizationButton(document.body);
 
   enableRouteChange = (): void => {
     window.onpopstate = () => {
