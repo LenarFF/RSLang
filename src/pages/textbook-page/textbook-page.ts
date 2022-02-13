@@ -2,6 +2,7 @@ import { getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import { MAX_GROUP, MAX_PAGES } from '../../constants/api';
+import { state } from '../../state';
 import './textbookPage.scss';
 
 export class TextbookPage extends Control {
@@ -45,8 +46,9 @@ export class TextbookPage extends Control {
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
     this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
-    this.sprintBtn.node.setAttribute('href', '#mini-game');
-    this.challengeBtn.node.setAttribute('href', '#mini-game');
+    // this.sprintBtn.node.setAttribute('href', '#mini-game');
+    // this.challengeBtn.node.setAttribute('href', '#mini-game');
+    this.challengeBtn.node.addEventListener('click', () => this.addWordInfo());
   }
 
   async renderCards(): Promise<void> {
@@ -88,5 +90,11 @@ export class TextbookPage extends Control {
     if (!target.dataset.num) return;
     this.group = Number(target.dataset.num) - 1;
     this.renderCards();
+  }
+
+  addWordInfo(): void {
+    state.group = this.group;
+    state.page = this.page;
+    window.location.hash = '#mini-game';
   }
 }

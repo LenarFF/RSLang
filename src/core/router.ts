@@ -5,8 +5,7 @@ import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
-import { AudioChallengePage } from '../pages/audio-challenge-page/audio-challenge-page';
-import { state } from '../state';
+import { AudioChallengePage } from '../pages/audio-challeng-page/audio-challeng-page';
 
 interface IRoute {
   name: string;
@@ -42,7 +41,7 @@ export const routing: IRoute[] = [
   {
     name: 'mini-game',
     component: (): void => {
-      const miniGame = new AudioChallengePage(document.body, state.group);
+      const miniGame = new AudioChallengePage(document.body);
       routingPagesElements.push(miniGame);
     },
   },

@@ -1,5 +1,11 @@
-const state = {
-  group : 0
+interface IState {
+  group: number | null;
+  page: number | null;
 }
 
-export {state}
+const state: IState = {
+  group: null,
+  page: null,
+};
+
+export { state };

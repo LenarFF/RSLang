@@ -5,31 +5,41 @@ import './GameResults.scss';
 
 class GameResults extends Control {
   right: ResultAnswers | null;
+
   wrong: ResultAnswers | null;
 
   container = new Control(this.node, 'div', 'game-results');
+
   closeBtn = new Control(this.container.node, 'button', 'game-results__close');
+
   title = new Control(this.container.node, 'h2', 'game-results__title', 'Результаты');
-  constructor(parent: HTMLElement, rightAnswers: IWord[], wrongAnswers: IWord[]) {
-    super(parent, 'div', 'game-results__modal');
+
+  constructor(
+    parent: Control,
+    rightAnswers: IWord[],
+    wrongAnswers: IWord[],
+    selectWindow: HTMLElement,
+  ) {
+    super(parent.node, 'div', 'game-results__modal');
     this.right = rightAnswers.length
       ? new ResultAnswers(this.container.node, 'Верно', rightAnswers, true)
       : null;
     this.wrong = wrongAnswers.length
       ? new ResultAnswers(this.container.node, 'Не верно', wrongAnswers, false)
       : null;
-    this.node.addEventListener('click', (e) => this.removeResults(e));
+    this.node.addEventListener('click', (e) => this.removeResults(e, parent, selectWindow));
   }
 
-  removeResults(e: MouseEvent) {
+  removeResults = (e: MouseEvent, game: Control, selectWindow: HTMLElement): void => {
     if (
-      !(e.target as HTMLElement).classList.contains('game-results__modal') &&
-      !(e.target as HTMLElement).classList.contains('game-results__close')
+      !(e.target as HTMLElement).classList.contains('game-results__modal')
+      && !(e.target as HTMLElement).classList.contains('game-results__close')
     ) {
       return;
     }
-    this.destroy();
-  }
+    game.destroy();
+    selectWindow.classList.remove('hidden');
+  };
 }
 
 export { GameResults };

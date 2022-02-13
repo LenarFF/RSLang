@@ -1,0 +1,45 @@
+@import '../../variables/colorVariables';
+
+.select-window {
+  width: 900px;
+  margin: 100px auto;
+  text-align: center;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  &__levels {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 10px;
+  }
+  &__level {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    cursor: pointer;
+    font-size: 30px;
+    &_1 {
+      background-color: $groupBg1;
+    }
+    &_2 {
+      background-color: $groupBg2;
+    }
+    &_3 {
+      background-color: $groupBg3;
+    }
+    &_4 {
+      background-color: $groupBg4;
+    }
+    &_5 {
+      background-color: $groupBg5;
+    }
+    &_6 {
+      background-color: $groupBg6;
+    }
+  }
+}

@@ -5,10 +5,11 @@ import './ResultAnswers.scss';
 
 class ResultAnswers extends Control {
   title: Control;
+
   answersList: Control;
 
   constructor(parent: HTMLElement, title: string, answers: IWord[], correctness: boolean) {
-    super(parent, 'div', 'results-answers' );
+    super(parent, 'div', 'results-answers');
     this.title = new Control(
       this.node,
       'h3',
@@ -17,10 +18,10 @@ class ResultAnswers extends Control {
     );
     this.answersList = new Control(this.node, 'ul', 'results-answers__list');
 
-    this.render(answers);    
+    this.render(answers);
   }
 
-  render(answers: IWord[]) {
+  render(answers: IWord[]): void {
     answers.map((answer) => {
       const li = new Control(this.answersList.node, 'li', 'results-answers__li');
       const play = new Control(null, 'button', 'results-answers__play');
@@ -36,11 +37,10 @@ class ResultAnswers extends Control {
     });
   }
 
-  playAudio(src: string) {
+  playAudio = (src: string): void => {
     const audio = new Audio(`${baseURL}/${src}`);
     audio.play();
-  }
+  };
 }
 
-
-export {ResultAnswers}
+export { ResultAnswers };
