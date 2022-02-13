@@ -2,6 +2,7 @@ import { getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import { MAX_GROUP, MAX_PAGES } from '../../constants/api';
+import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
 
 export class TextbookPage extends Control {
@@ -45,8 +46,8 @@ export class TextbookPage extends Control {
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
     this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
-    this.sprintBtn.node.setAttribute('href', '#mini-game');
-    this.challengeBtn.node.setAttribute('href', '#mini-game');
+    this.sprintBtn.node.setAttribute('href', Href.SPRINT);
+    this.challengeBtn.node.setAttribute('href', Href.AUDIO);
   }
 
   async renderCards(): Promise<void> {
