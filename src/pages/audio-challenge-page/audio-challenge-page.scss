@@ -1,6 +1,5 @@
 .challenge-page {
   background-color: rgb(0, 140, 255);
-
   height: 100vh;
   &__container {
     display: flex;
@@ -10,6 +9,7 @@
     width: 1400px;
     height: 100%;
     gap: 50px;
+    margin: 0 auto;
   }
   &__top {
     height: 300px;

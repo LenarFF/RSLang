@@ -1,6 +1,7 @@
 import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
+import { GameResults } from '../../components/GameResults/GameResults';
 import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
 import { IWord } from '../../types/interface';
 import './audio-challenge-page.scss';
@@ -14,6 +15,7 @@ class AudioChallengePage extends Control {
   currentQuestion = 0;
   answersQuantity = 5;
   answerCard: AnswerCard | null;
+  gameResults: GameResults | null;
   container = new Control(this.node, 'div', 'challenge-page__container');
   top = new Control(this.container.node, 'div', 'challenge-page__top');
   audioImg = new Control(this.top.node, 'div', 'challenge-page__audio-img');
@@ -28,6 +30,7 @@ class AudioChallengePage extends Control {
     this.rightAnswers = [];
     this.wrongAnswers = [];
     this.answerCard = null;
+    this.gameResults = null;
     this.getAllWords(group);
 
     this.controlBtn.node.setAttribute('data-next', 'false');
@@ -37,7 +40,10 @@ class AudioChallengePage extends Control {
   }
 
   showNextQuestion(): void {
-    if (this.currentQuestion >= WORDS_ON_PAGE - 1) return;
+    if (this.currentQuestion >= WORDS_ON_PAGE - 1) {
+      this.gameResults = new GameResults(this.node, this.rightAnswers, this.wrongAnswers);
+      return;
+    }
     this.currentQuestion++;
     this.variants.node.innerHTML = '';
     this.answers = [];
