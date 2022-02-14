@@ -53,11 +53,17 @@ class AudioChallengeGame extends Control {
 
     this.controlBtn.node.addEventListener('click', () => this.handleControl());
     this.variants.node.addEventListener('click', (e) => this.handleAnswer(e));
+    document.addEventListener('keydown', (e) => this.handleKeyboard(e));
   }
 
   showNextQuestion(): void {
     if (this.currentQuestion >= WORDS_ON_PAGE - 1) {
-      this.gameResults = new GameResults(this, this.rightAnswers, this.wrongAnswers, this.selectWindow);
+      this.gameResults = new GameResults(
+        this,
+        this.rightAnswers,
+        this.wrongAnswers,
+        this.selectWindow,
+      );
       return;
     }
     this.currentQuestion++;
@@ -77,6 +83,26 @@ class AudioChallengeGame extends Control {
       this.showNextQuestion();
     } else {
       this.showRightAnswer(this.words[this.currentQuestion]);
+      this.wrongAnswers.push(this.words[this.currentQuestion]);
+    }
+  }
+
+  checkAnswer = (answerBtn: HTMLElement, rightAnswer: IWord): void => {
+    if (answerBtn.dataset.word !== rightAnswer.word) {
+      answerBtn.classList.add('challenge-page__variant-btn_wrong');
+      this.wrongAnswers.push(rightAnswer);
+    } else {
+      this.rightAnswers.push(rightAnswer);
+    }
+  };
+
+  handleKeyboard(e: KeyboardEvent): void {
+    if (e.code === 'Enter') {
+      this.handleControl();
+    } else if (Number(e.key) >= 1 && Number(e.key) <= 5) {
+      const answerBtn = this.answerBtns.filter((btn) => btn.dataset.num === e.key)[0];
+      const event = new Event('click', { bubbles: true });
+      answerBtn.dispatchEvent(event);
     }
   }
 
@@ -98,14 +124,15 @@ class AudioChallengeGame extends Control {
   }
 
   renderAnswers(): void {
-    this.answers.map((word) => {
+    this.answers.map((word, index) => {
       const answerBtn = new Control(
         this.variants.node,
         'button',
         'challenge-page__variant-btn',
-        word.wordTranslate,
+        `${index + 1} ${word.wordTranslate}`,
       );
       answerBtn.node.setAttribute('data-word', word.word);
+      answerBtn.node.setAttribute('data-num', String(index + 1));
       this.answerBtns.push(answerBtn.node);
       return answerBtn;
     });
@@ -137,13 +164,8 @@ class AudioChallengeGame extends Control {
     const target = e.target as HTMLElement;
     const answer = target.dataset.word;
     const rightAnswer = this.words[this.currentQuestion];
-    if (!answer) return;
-    if (answer !== rightAnswer.word) {
-      target.classList.add('challenge-page__variant-btn_wrong');
-      this.wrongAnswers.push(rightAnswer);
-    } else {
-      this.rightAnswers.push(rightAnswer);
-    }
+    if (!answer || !!target.getAttribute('disabled')) return;
+    this.checkAnswer(target, rightAnswer);
     this.showRightAnswer(rightAnswer);
   };
 
