@@ -18,7 +18,7 @@ export const loginInputs = [
   },
 ];
 
-export const submitInputs = [
+export const SubmitInputs = [
   {
     value: 'вход',
   },
@@ -29,3 +29,11 @@ export const submitInputs = [
     value: 'выход',
   },
 ];
+
+export const enum InputErrors {
+  empty = 'не заполнено поле',
+  minLength = 'минимальная длина пароля 8 символов',
+  loginSuccess = 'регистрация успешна',
+  login = 'регистрация',
+  signOut = 'необходимо сперва разлогиниться',
+}

@@ -1,6 +1,5 @@
 import { MainPage } from '../pages/main-page/main-page';
 import { TextbookPage } from '../pages/textbook-page/textbook-page';
-import { AuthorizationPage } from '../pages/authorization-page/authorization-page';
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
 import { Control } from '../components/Control';
@@ -20,20 +19,6 @@ export const routing: IRoute[] = [
       const footer = new Footer(document.body);
 
       routingPagesElements.push(electronicTextbook);
-      routingPagesElements.push(footer);
-    },
-  },
-  {
-    name: 'authorization',
-    component: (): void => {
-      const authorization = new AuthorizationPage(
-        document.body,
-        'main',
-        'main authorization-page',
-        'AUTHORIZATION-PAGE',
-      );
-      const footer = new Footer(document.body);
-      routingPagesElements.push(authorization);
       routingPagesElements.push(footer);
     },
   },

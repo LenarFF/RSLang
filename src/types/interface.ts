@@ -15,4 +15,9 @@ interface IWord {
   textExampleTranslate: 'string';
 }
 
-export { IWord };
+interface IValue {
+  email: string;
+  password: string;
+}
+
+export { IWord, IValue };

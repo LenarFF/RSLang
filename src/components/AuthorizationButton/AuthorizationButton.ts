@@ -1,5 +1,6 @@
 import { Control } from '../Control';
 import { loginInputs } from '../../data/authorization';
+import { TOKEN } from '../../constants/api';
 import './AuthorizationButton.scss';
 
 export class AuthorizationButton extends Control {
@@ -13,7 +14,7 @@ export class AuthorizationButton extends Control {
 
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'authorization');
-    if (localStorage.getItem('token') !== '') {
+    if (localStorage.getItem(TOKEN) !== '') {
       this.authorizationButton.node.classList.add('authorization-button__active');
     }
     this.authorizationButtonPath.node.setAttribute('d', loginInputs[0].path);
@@ -23,14 +24,17 @@ export class AuthorizationButton extends Control {
     this.formContainer = document.querySelector('.form-container');
 
     this.authorizationButton.node.onclick = () => {
-      this.authorizationButtonOnClick();
+      this.OnClickAuthorizationBtn();
     };
   }
 
-  authorizationButtonOnClick(): void {
+  OnClickAuthorizationBtn(): void {
     this.formContainer?.classList.toggle('form-container__active');
-    if (this.formContainer?.className.split(' ').includes('form-container__active')) {
+    if (this.formContainer?.classList.contains('form-container__active')) {
       (this.formContainer.children[0] as HTMLFormElement).reset();
+    }
+    for (const item of document.querySelectorAll('.error')) {
+      item.innerHTML = '';
     }
   }
 }
