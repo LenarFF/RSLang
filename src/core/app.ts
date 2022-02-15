@@ -4,6 +4,7 @@ import {AuthorizationButton} from '../components/AuthorizationButton/Authorizati
 
 export class App {
   aside = new Aside(document.body, 'aside', 'aside', '');
+
   authorizationButton = new AuthorizationButton(document.body);
 
   enableRouteChange = (): void => {

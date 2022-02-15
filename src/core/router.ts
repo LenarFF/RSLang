@@ -7,6 +7,7 @@ import { SprintPage } from '../pages/sprint-page/sprint-page';
 import { AudioPage } from '../pages/audio-page/audio-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
+import { AudioChallengePage } from '../pages/audio-challeng-page/audio-challeng-page';
 import { Href } from '../constants/router-refs';
 
 interface IRoute {
@@ -43,7 +44,7 @@ export const routing: IRoute[] = [
   {
     name: Href.AUDIO.slice(1),
     component: (): void => {
-      const audioGame = new AudioPage(document.body);
+      const audioGame = new AudioChallengePage(document.body);
       routingPagesElements.push(audioGame);
     },
   },

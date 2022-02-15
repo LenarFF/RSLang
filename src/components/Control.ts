@@ -19,7 +19,6 @@ class Control <NodeType extends HTMLElement = HTMLElement> {
   destroy(): void {
     this.node.remove();
   }
-
 }
 
 export { Control };

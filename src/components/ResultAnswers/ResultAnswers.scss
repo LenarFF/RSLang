@@ -1,0 +1,37 @@
+@import '../../variables/colorVariables';
+@import '../../variables/mixins';
+
+.results-answers {
+  width: 100%;
+  text-align: center;
+  &__title {
+    &_right {
+      color: $right;
+    }
+    &_wrong {
+      color: $wrong;
+    }
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    padding: 10p
+  }
+  &__li {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    background-color: inherit;
+    transition: background-color 0.3s;
+    align-items: center;
+    &:hover {
+      background-color: rgb(213, 217, 219);
+    }
+  }
+  &__play {
+    background-image: url(../../assets/img/play.png);
+    @include iconBtn;
+  }
+}
