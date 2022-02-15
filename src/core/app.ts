@@ -1,10 +1,10 @@
 import { routing, defaultRoute } from './router';
-import { Aside } from './aside-menu';
+import { Aside } from './AsideMenu/aside-menu';
 import { AuthorizationButton } from '../components/AuthorizationButton/AuthorizationButton';
 import { AuthorizationForm } from '../components/AuthorizationForm/AuthorizationForm';
 
 export class App {
-  aside = new Aside(document.body, 'aside', 'aside');
+  aside = new Aside(document.body, 'aside', 'aside', '');
 
   authorizationForm = new AuthorizationForm(document.body);
 

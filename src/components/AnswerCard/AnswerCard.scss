@@ -1,0 +1,25 @@
+.answer-card {
+  &__img {
+    height: 200px;
+    border: 2px solid #444467;
+    border-radius: 5px;
+  }
+  &__word-wrap {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  &__play {
+    background-image: url(../../assets/img/play.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+  }
+}

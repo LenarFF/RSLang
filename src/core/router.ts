@@ -2,8 +2,12 @@ import { MainPage } from '../pages/main-page/main-page';
 import { TextbookPage } from '../pages/textbook-page/textbook-page';
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
+import { SprintPage } from '../pages/sprint-page/sprint-page';
+import { AudioPage } from '../pages/audio-page/audio-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
+import { AudioChallengePage } from '../pages/audio-challeng-page/audio-challeng-page';
+import { Href } from '../constants/router-refs';
 
 interface IRoute {
   name: string;
@@ -13,7 +17,7 @@ export const routingPagesElements: Control[] = [];
 
 export const routing: IRoute[] = [
   {
-    name: 'electronic-textbook',
+    name: Href.BOOK.slice(1),
     component: (): void => {
       const electronicTextbook = new TextbookPage(document.body);
       const footer = new Footer(document.body);
@@ -23,20 +27,33 @@ export const routing: IRoute[] = [
     },
   },
   {
-    name: 'mini-game',
+    name: Href.GAMES.slice(1),
     component: (): void => {
-      const miniGame = new GamesPage(document.body, 'main', 'main mini-game', 'MINI-GAME');
+      const miniGame = new GamesPage(document.body);
       routingPagesElements.push(miniGame);
     },
   },
   {
-    name: 'statistics',
+    name: Href.SPRINT.slice(1),
+    component: (): void => {
+      const sprintGame = new SprintPage(document.body);
+      routingPagesElements.push(sprintGame);
+    },
+  },
+  {
+    name: Href.AUDIO.slice(1),
+    component: (): void => {
+      const audioGame = new AudioChallengePage(document.body);
+      routingPagesElements.push(audioGame);
+    },
+  },
+  {
+    name: Href.STAT.slice(1),
     component: (): void => {
       const statistics = new StatisticsPage(
         document.body,
         'main',
         'main statistics-page',
-        'STATISTICS',
       );
       const footer = new Footer(document.body);
       routingPagesElements.push(statistics);
@@ -46,12 +63,11 @@ export const routing: IRoute[] = [
 ];
 
 export const defaultRoute = {
-  name: 'main-page',
+  name: Href.MAIN.slice(1),
   component: (): void => {
     const mainPage = new MainPage(document.body);
     const footer = new Footer(document.body);
 
-    window.location.hash = '#main-page';
     routingPagesElements.push(mainPage);
     routingPagesElements.push(footer);
   },
