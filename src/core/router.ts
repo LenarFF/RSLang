@@ -1,6 +1,5 @@
 import { MainPage } from '../pages/main-page/main-page';
 import { TextbookPage } from '../pages/textbook-page/textbook-page';
-import { AuthorizationPage } from '../pages/authorization-page/authorization-page';
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
 import { SprintPage } from '../pages/sprint-page/sprint-page';
