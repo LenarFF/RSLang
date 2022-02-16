@@ -4,7 +4,6 @@ import { AuthorizationPage } from '../pages/authorization-page/authorization-pag
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
 import { SprintPage } from '../pages/sprint-page/sprint-page';
-import { AudioPage } from '../pages/audio-page/audio-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
 import { AudioChallengePage } from '../pages/audio-challeng-page/audio-challeng-page';
@@ -51,11 +50,7 @@ export const routing: IRoute[] = [
   {
     name: Href.STAT.slice(1),
     component: (): void => {
-      const statistics = new StatisticsPage(
-        document.body,
-        'main',
-        'main statistics-page',
-      );
+      const statistics = new StatisticsPage(document.body);
       const footer = new Footer(document.body);
       routingPagesElements.push(statistics);
       routingPagesElements.push(footer);
