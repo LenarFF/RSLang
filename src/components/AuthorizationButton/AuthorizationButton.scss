@@ -9,6 +9,7 @@
     min-width: 40px;
     height: 40px;
     background: #ff2c74;
+    transition: .4s all;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,9 +20,13 @@
             5px 5px 7px rgba(0, 0, 0, 0.25), 
       inset 2px 2px 5px rgba(255, 255, 255, 0.25),
       inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+    svg {
+      width: 22px;
+      height: 22px;
+    }
   }
-  &-button svg {
-    width: 22px;
-    height: 22px;
+  &-button__active {
+    background: #08ec08;
+    transition: .4s all;
   }
 }
