@@ -1,6 +1,6 @@
 import { Control } from '../Control';
 import { loginInputs } from '../../data/authorization';
-import { TOKEN } from '../../constants/api';
+import { USER_DATA } from '../../constants/api';
 import './AuthorizationButton.scss';
 
 export class AuthorizationButton extends Control {
@@ -14,7 +14,7 @@ export class AuthorizationButton extends Control {
 
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'authorization');
-    if (localStorage.getItem(TOKEN) !== '') {
+    if (localStorage.getItem(USER_DATA)) {
       this.authorizationButton.node.classList.add('authorization-button__active');
     }
     this.authorizationButtonPath.node.setAttribute('d', loginInputs[0].path);
