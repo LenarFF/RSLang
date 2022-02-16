@@ -3,7 +3,7 @@ import { SubmitInputs, InputErrors } from '../../data/authorization';
 import { IValue } from '../../types/interface';
 import { createUser, loginUser } from '../../api/authorization';
 import { LoginInput } from '../LoginInputs/LoginInputs';
-import { TOKEN } from '../../constants/api';
+import { USER_DATA } from '../../constants/api';
 import './AuthorizationForm.scss';
 
 export class AuthorizationForm extends Control {
@@ -64,10 +64,10 @@ export class AuthorizationForm extends Control {
 
   onSignOut():void {
     this.changeErrorBox();
-    if (localStorage.getItem(TOKEN)) {
+    if (localStorage.getItem(USER_DATA)) {
       document.querySelector('.authorization-button')?.classList.remove('authorization-button__active');
     }
-    localStorage.setItem(TOKEN, '');
+    localStorage.setItem(USER_DATA, '');
     this.node.classList.toggle('form-container__active');
   }
 
@@ -79,7 +79,7 @@ export class AuthorizationForm extends Control {
           if (typeof res === 'string') {
             this.passError.node.innerText = res || '';
           } else {
-            localStorage.setItem(TOKEN, Object.values(res)[1]);
+            localStorage.setItem(USER_DATA, JSON.stringify(res));
             this.node.classList.toggle('form-container__active');
             (this.form.node as HTMLFormElement).reset();
             document.querySelector('.authorization-button')?.classList.add('authorization-button__active');
