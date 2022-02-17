@@ -1,5 +1,6 @@
 interface IWord {
-  id: 'string';
+  id?: 'string';
+  _id?: 'string';
   group: 0;
   page: 0;
   word: 'string';
@@ -20,4 +21,11 @@ interface IValue {
   password: string;
 }
 
-export { IWord, IValue };
+interface IStorageData {
+  message: string;
+  refreshToken: string;
+  token: string;
+  userId: string;
+}
+
+export { IWord, IValue, IStorageData };

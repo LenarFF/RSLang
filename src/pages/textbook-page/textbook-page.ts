@@ -1,10 +1,11 @@
-import { getWords } from '../../api/textbook';
+import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
-import { MAX_GROUP, MAX_PAGES } from '../../constants/api';
+import { DIFFICULT_FILTER, MAX_GROUP, MAX_PAGES } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
+import { IWord } from '../../types/interface';
 
 export class TextbookPage extends Control {
   title = new Control(this.node, 'h2', 'textbook-page__title', 'Электронный учебник');
@@ -46,7 +47,9 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
+    this.groupField.node.addEventListener('click', (e) =>
+      this.selectGroup(e.target as HTMLElement),
+    );
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo());
     this.sprintBtn.node.setAttribute('href', Href.SPRINT);
     this.challengeBtn.node.setAttribute('href', Href.AUDIO);
@@ -56,6 +59,14 @@ export class TextbookPage extends Control {
     const words = await getWords(this.group, this.page);
     this.cardField.node.innerHTML = '';
     words.map((word) => new WordCard(this.cardField.node, word, this.group));
+  }
+
+  async renderDifficultCards() {
+    const words = await getAggregatedWords(DIFFICULT_FILTER);
+    this.cardField.node.innerHTML = '';
+    if (words) {
+      words.map((word) => new WordCard(this.cardField.node, word, MAX_GROUP));
+    }
   }
 
   renderGroup(): void {
@@ -71,6 +82,13 @@ export class TextbookPage extends Control {
 
       return groupBtn;
     });
+    const difficultGroup = new Control(
+      this.groupField.node,
+      'button',
+      `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
+      '!',
+    );
+    difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
   }
 
   handleLeft(): void {
@@ -96,6 +114,6 @@ export class TextbookPage extends Control {
   addWordInfo(): void {
     state.group = this.group;
     state.page = this.page;
-    window.location.hash = '#mini-game';
+    window.location.hash = Href.GAMES;
   }
 }
