@@ -16,6 +16,7 @@ class WordCard extends Control {
   wordWrap = new Control(this.top.node, 'div', 'word-card__word-wrap');
 
   controls = new Control(this.top.node, 'div', 'word-card__controls');
+
   img: Control;
 
   word: Control;
@@ -84,16 +85,16 @@ class WordCard extends Control {
       'word-card__text-ru',
       `Пример: ${textExampleTranslate}`,
     );
-    if (_id) {      
+    if (_id) {
       this.setControlBtnDifficult(_id);
-    } else if(id) {
+    } else if (id) {
       this.setControlBtns(id);
     }
   }
 
   removeDifficult(wordID: string) {
     updateDifficult(wordID, Difficulty.normal);
-    this.destroy()
+    this.destroy();
   }
 
   setControlBtnDifficult(wordID: string) {
@@ -102,7 +103,7 @@ class WordCard extends Control {
       'button',
       'word-card__not-difficult-btn',
     );
-    notDifficultBtn.node.setAttribute('title', 'больше не сложное')
+    notDifficultBtn.node.setAttribute('title', 'больше не сложное');
     notDifficultBtn.node.addEventListener('click', () => this.removeDifficult(wordID));
   }
 
@@ -112,24 +113,24 @@ class WordCard extends Control {
     difficultBtn.node.setAttribute('title', 'Сложное слово');
     studiedBtn.node.setAttribute('title', 'Изученное слово');
     difficultBtn.node.addEventListener('click', () =>
-      this.handleDifficult(wordID, [difficultBtn, studiedBtn]),
+      this.handleDifficult(wordID, [difficultBtn.node, studiedBtn.node]),
     );
     studiedBtn.node.addEventListener('click', () =>
-      this.handleStudied(wordID, [difficultBtn, studiedBtn]),
+      this.handleStudied(wordID, [difficultBtn.node, studiedBtn.node]),
     );
   }
 
-  disableButtons = (btns: Control[]): void =>
-    btns.forEach((btn) => btn.node.setAttribute('disabled', 'true'));
+  disableButtons = (btns: Element[]): void =>
+    btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
 
-  handleDifficult(wordID: string, btns: Control[]): void {
+  handleDifficult(wordID: string, btns: Element[]): void {
     this.node.classList.remove('word-card_studied');
     this.node.classList.toggle('word-card_difficult');
     this.disableButtons(btns);
     setDifficult(wordID, Difficulty.hard);
   }
 
-  handleStudied(wordID: string, btns: Control[]): void {
+  handleStudied(wordID: string, btns: Element[]): void {
     this.node.classList.remove('word-card_difficult');
     this.node.classList.toggle('word-card_studied');
     this.disableButtons(btns);

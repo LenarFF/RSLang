@@ -1,3 +1,5 @@
+import { Difficulty } from '../constants/textbook';
+
 interface IWord {
   id?: 'string';
   _id?: 'string';
@@ -14,6 +16,7 @@ interface IWord {
   wordTranslate: 'string';
   textMeaningTranslate: 'string';
   textExampleTranslate: 'string';
+  userWord?: { difficulty: Difficulty, optional?: IOptional };
 }
 
 interface IValue {
@@ -28,4 +31,10 @@ interface IStorageData {
   userId: string;
 }
 
-export { IWord, IValue, IStorageData };
+interface IOptional {
+  right: number;
+  wrong: number;
+  series: number;
+}
+
+export { IWord, IValue, IStorageData, IOptional };

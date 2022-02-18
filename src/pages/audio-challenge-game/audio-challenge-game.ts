@@ -1,3 +1,4 @@
+import { setUserAnswer } from '../../api/audioChallengeGame';
 import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
@@ -76,23 +77,28 @@ class AudioChallengeGame extends Control {
     this.enableBtn(this.answerBtns);
     this.controlBtn.node.innerText = 'не знаю';
     this.controlBtn.node.setAttribute('data-next', 'false');
-  }
+  }  
 
   handleControl(): void {
     if (this.controlBtn.node.dataset.next === 'true') {
       this.showNextQuestion();
+      setUserAnswer(this.words[this.currentQuestion].id as string, false);
     } else {
       this.showRightAnswer(this.words[this.currentQuestion]);
       this.wrongAnswers.push(this.words[this.currentQuestion]);
     }
   }
 
-  checkAnswer = (answerBtn: HTMLElement, rightAnswer: IWord): void => {
-    if (answerBtn.dataset.word !== rightAnswer.word) {
-      answerBtn.classList.add('challenge-page__variant-btn_wrong');
-      this.wrongAnswers.push(rightAnswer);
-    } else {
-      this.rightAnswers.push(rightAnswer);
+  checkAnswer = async (answerBtn: HTMLElement, rightAnswer: IWord): Promise<void> => {
+    if (rightAnswer.id) {      
+      if (answerBtn.dataset.wordid !== rightAnswer.id) {
+        answerBtn.classList.add('challenge-page__variant-btn_wrong');
+        this.wrongAnswers.push(rightAnswer);
+        setUserAnswer(rightAnswer.id, false);
+      } else {
+        this.rightAnswers.push(rightAnswer);
+        setUserAnswer(rightAnswer.id, true);
+      }
     }
   };
 
@@ -107,7 +113,7 @@ class AudioChallengeGame extends Control {
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(group, page);
+    this.words = await getWords(String(group), String(page));
     this.getAnswers();
   }
 
@@ -131,7 +137,7 @@ class AudioChallengeGame extends Control {
         'challenge-page__variant-btn',
         `${index + 1} ${word.wordTranslate}`,
       );
-      answerBtn.node.setAttribute('data-word', word.word);
+      if (word.id) answerBtn.node.setAttribute('data-wordid', word.id);
       answerBtn.node.setAttribute('data-num', String(index + 1));
       this.answerBtns.push(answerBtn.node);
       return answerBtn;
@@ -150,7 +156,7 @@ class AudioChallengeGame extends Control {
 
   showRightAnswer(rightAnswer: IWord): void {
     const rightBtns = this.answerBtns.filter(
-      (btn) => (btn as HTMLElement).dataset.word === rightAnswer.word,
+      (btn) => (btn as HTMLElement).dataset.wordid === rightAnswer.id,
     );
     rightBtns[0].classList.add('challenge-page__variant-btn_right');
     this.controlBtn.node.innerText = 'следующий';
@@ -162,14 +168,15 @@ class AudioChallengeGame extends Control {
 
   handleAnswer = (e: MouseEvent): void => {
     const target = e.target as HTMLElement;
-    const answer = target.dataset.word;
+    const answer = target.dataset.wordid;
     const rightAnswer = this.words[this.currentQuestion];
     if (!answer || !!target.getAttribute('disabled')) return;
     this.checkAnswer(target, rightAnswer);
     this.showRightAnswer(rightAnswer);
   };
 
-  disableBtn = (btns: HTMLElement[]): void => btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
+  disableBtn = (btns: HTMLElement[]): void =>
+    btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
 
   enableBtn = (btns: HTMLElement[]): void => btns.forEach((btn) => btn.removeAttribute('disabled'));
 }
