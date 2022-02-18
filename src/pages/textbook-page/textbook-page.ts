@@ -52,6 +52,7 @@ export class TextbookPage extends Control {
       this.selectGroup(e.target as HTMLElement),
     );
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo());
+    this.sprintBtn.node.addEventListener('click', () => this.addWordInfo());
     this.sprintBtn.node.setAttribute('href', Href.SPRINT);
     this.challengeBtn.node.setAttribute('href', Href.AUDIO);
   }

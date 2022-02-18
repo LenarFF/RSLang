@@ -1,5 +1,6 @@
 import { MAX_GROUP } from '../../constants/api';
 import { AudioChallengeGame } from '../../pages/audio-challenge-game/audio-challenge-game';
+import { SprintGame } from '../../pages/sprint-game/sprint-game';
 import { Control } from '../Control';
 import './SelectGroup.scss';
 
@@ -16,7 +17,7 @@ class SelectGroup extends Control {
     this.text = new Control(this.node, 'p', 'select-window__text', 'Выберите уровень сложности');
     this.levels = new Control(this.node, 'ul', 'select-window__levels');
     this.renderLevels();
-    this.node.addEventListener('click', (e) => this.renderGame(e.target as HTMLElement));
+    this.node.addEventListener('click', (e) => this.renderGame(e.target as HTMLElement, gameName));
   }
 
   renderLevels(): void {
@@ -28,10 +29,12 @@ class SelectGroup extends Control {
     });
   }
 
-  renderGame(target: HTMLElement): void {
+  renderGame(target: HTMLElement, gameName: string): void {
     const { group } = target.dataset;
     if (!group) return;
-    const game = new AudioChallengeGame(Number(group), this.node);
+    const game = (gameName === 'Аудиовызов')
+      ? new AudioChallengeGame(Number(group), this.node)
+      : new SprintGame(Number(group), this.node);
     const gamePage = this.node.parentElement;
     this.node.classList.add('hidden');
     if (gamePage) gamePage.append(game.node);
