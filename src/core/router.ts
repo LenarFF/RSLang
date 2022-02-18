@@ -3,7 +3,6 @@ import { TextbookPage } from '../pages/textbook-page/textbook-page';
 import { StatisticsPage } from '../pages/statistics-page/statistics-page';
 import { GamesPage } from '../pages/games-page/games-page';
 import { SprintPage } from '../pages/sprint-page/sprint-page';
-import { AudioPage } from '../pages/audio-page/audio-page';
 import { Control } from '../components/Control';
 import { Footer } from '../components/Footer/Footer';
 import { AudioChallengePage } from '../pages/audio-challeng-page/audio-challeng-page';
