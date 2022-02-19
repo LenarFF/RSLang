@@ -1,6 +1,6 @@
 import { Control } from '../../components/Control';
 import { Href } from '../../constants/router-refs';
-import './asideMenu.scss';
+import './aside-menu.scss';
 
 const asideContent = `
   <div class="nav">

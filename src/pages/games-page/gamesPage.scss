@@ -1,5 +1,6 @@
 .mini-game {
-  background-color: #b04dc9;
+  height: 100vh;
+  background: linear-gradient(1deg, #193b6b,#ffffff);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -9,7 +10,6 @@
   height: 45px;
   border-radius: 10px;
   background-color: #fff;
-  
   & a {
     display: flex;
     justify-content: center;

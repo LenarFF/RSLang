@@ -6,44 +6,12 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
-
 body {
   overflow-x: hidden;
   font-size: 1.1em;
   height: 100vh;
   justify-content: space-between;
 }
-.main {
-  height: 100vh;
-  padding: 5px;
-}
-.aside {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  position: absolute;
-  top: 0;
-}
-.nav {
-  padding-top: 30px;
-  padding-left: 10px;
-}
-.item-main {
-  background-image: url(../public/svg/main.svg);
-}
-.item-textbook {
-  background-image: url(../public/svg/textbook.svg);
-}
-.item-authorization {
-  background-image: url(../public/svg/authorization.svg);
-}
-.item-game {
-  background-image: url(../public/svg/game.svg);
-}
-.item-statistics {
-  background-image: url(../public/svg/statistics.svg);
-}
-
 .hidden {
   display: none;
 }

@@ -2,7 +2,7 @@ import { Control } from '../../components/Control';
 import { developers } from '../../data/developers';
 import { DeveloperCard } from '../../components/DeveloperCard/DeveloperCard';
 import { Opportunity } from '../../components/Opportunity/Opportunity';
-import './MainPage.scss';
+import './main-page.scss';
 import { opportunities } from '../../data/opportunities';
 
 class MainPage extends Control {

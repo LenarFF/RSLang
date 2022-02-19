@@ -1,0 +1,44 @@
+@import '../../variables/colorVariables';
+
+.main-page {
+  height: calc(100vh - 60px);
+  flex-grow: 1;
+  color: $lightFontColor;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(1deg, #526d94,#ffffff);
+    z-index: -1;
+  }
+  &__title {
+    font-size: 60px;
+  }
+  &__description {
+    font-size: 28px;
+  }
+  &__opportunities {
+    display: flex;
+    justify-content: center;
+  }
+  &__team-cards {
+    display: flex;
+    width: 750px;
+    justify-content: space-between;
+    margin: 0 auto;
+    @media (max-width: 800px) {
+      width: 450px;
+      flex-direction: column;
+    }
+  }
+  &__team-title {
+    margin-bottom: 40px;
+    font-size: 38px;
+  }
+}
