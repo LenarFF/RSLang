@@ -82,6 +82,8 @@ export class SprintGame extends Control {
     this.answers = [];
     this.audioRight.node.setAttribute('src', audioSrc.right);
     this.audioWrong.node.setAttribute('src', audioSrc.wrong);
+    (this.audioRight.node as HTMLAudioElement).volume = 0.5;
+    (this.audioWrong.node as HTMLAudioElement).volume = 0.5;
     this.answersBox.node.addEventListener('click', (e) => this.handleControl(e));
     this.timer.start(SPRINT_TIMER);
     this.timer.onTimeout = () => {

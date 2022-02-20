@@ -1,5 +1,6 @@
 .mini-game {
-  background-color: #b04dc9;
+  height: 100vh;
+  background: linear-gradient(1deg, #193b6b,#ffffff);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -7,9 +8,15 @@
 .games-btn {
   width: 120px;
   height: 45px;
-  border-radius: 10px;
+  border-radius: 30px;
   background-color: #fff;
-  
+  color: #3a3aa5;
+  letter-spacing: 2px;
+  font-weight: 900;
+  box-shadow: 
+            5px 5px 7px rgba(0, 0, 0, 0.25), 
+      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   & a {
     display: flex;
     justify-content: center;

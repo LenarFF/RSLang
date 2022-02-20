@@ -94,6 +94,16 @@
     color: #fff;
   }
 }
+.menu-name a {
+  &::before {
+    bottom: -14px;
+    left: -56px;
+    position: absolute;
+    content: "";
+    height: 45px;
+    width: 190px;
+  }
+}
 .menu-ico__stat {
   background: url(../../../public/svg/statistics.svg) no-repeat center;
 }

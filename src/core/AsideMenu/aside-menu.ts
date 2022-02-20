@@ -1,10 +1,10 @@
 import { Control } from '../../components/Control';
 import { Href } from '../../constants/router-refs';
-import './asideMenu.scss';
+import './aside-menu.scss';
 
 const asideContent = `
   <div class="nav">
-        <ul class="menu-container">
+        <div class="menu-container">
           <div class="menu-item">
             <div class="rank">
               <span class="menu-ico__main"></span>
@@ -37,7 +37,7 @@ const asideContent = `
               <a href="${Href.STAT}">СТАТИСТИКА</a>
             </div>
           </div>
-        </ul>
+        </div>
   </div>
 `;
 
