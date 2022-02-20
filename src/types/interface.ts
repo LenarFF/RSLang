@@ -37,4 +37,6 @@ interface IOptional {
   series: number;
 }
 
-export { IWord, IValue, IStorageData, IOptional };
+export {
+  IWord, IValue, IStorageData, IOptional,
+};

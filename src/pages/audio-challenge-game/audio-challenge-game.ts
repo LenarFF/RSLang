@@ -1,10 +1,12 @@
-import { setUserAnswer } from '../../api/audioChallengeGame';
+import { setUserAnswer } from '../../api/games';
 import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
 import { GameResults } from '../../components/GameResults/GameResults';
 import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { Statistics } from '../../core/statistics';
 import { IWord } from '../../types/interface';
+import { Games } from '../../types/statistics';
 import './audio-challenge-game.scss';
 
 class AudioChallengeGame extends Control {
@@ -77,7 +79,7 @@ class AudioChallengeGame extends Control {
     this.enableBtn(this.answerBtns);
     this.controlBtn.node.innerText = 'не знаю';
     this.controlBtn.node.setAttribute('data-next', 'false');
-  }  
+  }
 
   handleControl(): void {
     if (this.controlBtn.node.dataset.next === 'true') {
@@ -90,14 +92,16 @@ class AudioChallengeGame extends Control {
   }
 
   checkAnswer = async (answerBtn: HTMLElement, rightAnswer: IWord): Promise<void> => {
-    if (rightAnswer.id) {      
+    if (rightAnswer.id) {
       if (answerBtn.dataset.wordid !== rightAnswer.id) {
         answerBtn.classList.add('challenge-page__variant-btn_wrong');
         this.wrongAnswers.push(rightAnswer);
         setUserAnswer(rightAnswer.id, false);
+        Statistics.handleAnswer(rightAnswer.id, Games.audio, false);
       } else {
         this.rightAnswers.push(rightAnswer);
         setUserAnswer(rightAnswer.id, true);
+        Statistics.handleAnswer(rightAnswer.id, Games.audio, true);
       }
     }
   };
@@ -175,8 +179,7 @@ class AudioChallengeGame extends Control {
     this.showRightAnswer(rightAnswer);
   };
 
-  disableBtn = (btns: HTMLElement[]): void =>
-    btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
+  disableBtn = (btns: HTMLElement[]): void => btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
 
   enableBtn = (btns: HTMLElement[]): void => btns.forEach((btn) => btn.removeAttribute('disabled'));
 }

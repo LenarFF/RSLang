@@ -1,4 +1,4 @@
-import { user } from '../constants/api';
+import { user, USER_DATA } from '../constants/api';
 import { Difficulty } from '../constants/textbook';
 import { setEasyDifficulty, setNormalDifficulty } from '../helpers/wordsData';
 import { IOptional, IWord } from '../types/interface';
@@ -6,7 +6,7 @@ import { getStorageData } from './localStorage';
 import { setDifficult } from './textbook';
 
 const setUserAnswer = async (wordID: string, correctness: boolean): Promise<IWord | void> => {
-  const storageData = getStorageData();
+  const storageData = getStorageData(USER_DATA);
   try {
     if (storageData) {
       const response = await fetch(`${user}/${storageData.userId}/words/${wordID}`, {
@@ -23,14 +23,14 @@ const setUserAnswer = async (wordID: string, correctness: boolean): Promise<IWor
 
         if (word.optional !== undefined) {
           if (correctness) {
-            const wordDifficult = setEasyDifficulty(word.difficulty, word.optional.series);
+            const wordDifficult = setEasyDifficulty(word.difficulty, word.optional.series, wordID);
             updateGameWord(wordID, wordDifficult, {
               ...word.optional,
               right: +word.optional.right + 1,
               series: +word.optional.series + 1,
             });
           } else {
-            const wordDifficult = setNormalDifficulty(word.difficulty);
+            const wordDifficult = setNormalDifficulty(word.difficulty, wordID);
             updateGameWord(wordID, wordDifficult, {
               ...word.optional,
               wrong: +word.optional.wrong + 1,
@@ -52,7 +52,7 @@ const setUserAnswer = async (wordID: string, correctness: boolean): Promise<IWor
 };
 
 const postNewWord = async (wordID: string, correctness: boolean): Promise<void> => {
-  const storageData = getStorageData();
+  const storageData = getStorageData(USER_DATA);
   if (storageData) {
     fetch(`${user}/${storageData.userId}/words/${wordID}`, {
       method: 'POST',
@@ -77,7 +77,7 @@ const updateGameWord = async (
   difficulty: Difficulty,
   optional: {},
 ): Promise<void> => {
-  const storageData = getStorageData();
+  const storageData = getStorageData(USER_DATA);
 
   if (storageData) {
     const response = await fetch(`${user}/${storageData.userId}/words/${wordID}`, {

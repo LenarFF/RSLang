@@ -7,6 +7,9 @@ import { SPRINT_TIMER } from '../../constants/sprint';
 import { IWord } from '../../types/interface';
 import { audioSrc } from '../../data/sprint';
 import './sprint-game.scss';
+import { setUserAnswer } from '../../api/games';
+import { Statistics } from '../../core/statistics';
+import { Games } from '../../types/statistics';
 
 export class SprintGame extends Control {
   words: IWord[];
@@ -21,7 +24,12 @@ export class SprintGame extends Control {
 
   gameResults: GameResults | null;
 
-  increment = new Control(this.container.node, 'div', 'sprint-page__increment', '+10 очков за слово');
+  increment = new Control(
+    this.container.node,
+    'div',
+    'sprint-page__increment',
+    '+10 очков за слово',
+  );
 
   incrementFactor = 1;
 
@@ -102,21 +110,26 @@ export class SprintGame extends Control {
     }
   }
 
-  checkAnswer(value: string | undefined):void {
+  checkAnswer(value: string | undefined): void {
     const word = this.words[this.currentQuestion].wordTranslate;
     const answer = this.answers[this.currentQuestion].wordTranslate;
+    const wordID = this.words[this.currentQuestion].id as string;
     if ((value === 'true' && word === answer) || (value === 'false' && word !== answer)) {
       this.rightAnswers.push(this.words[this.currentQuestion]);
       this.indicateAnswer('true');
       this.playAudio('true');
+      setUserAnswer(this.words[this.currentQuestion].id as string, true);
+      Statistics.handleAnswer(wordID, Games.sprint, true);
     } else {
+      setUserAnswer(this.words[this.currentQuestion].id as string, false);
       this.wrongAnswers.push(this.words[this.currentQuestion]);
       this.indicateAnswer('false');
       this.playAudio('false');
+      Statistics.handleAnswer(wordID, Games.sprint, false);
     }
   }
 
-  indicateAnswer(value: string | undefined):void {
+  indicateAnswer(value: string | undefined): void {
     // console.log(this.tripletsCount);
     if (value === 'true') {
       this.tripletsCount++;
@@ -162,18 +175,18 @@ export class SprintGame extends Control {
     this.increment.node.innerText = `+${10 * this.incrementFactor} очков за слово`;
   }
 
-  clearTriplets():void {
+  clearTriplets(): void {
     const test = Array.from(this.triplets.node.children);
     test.forEach((elem) => (elem as HTMLElement).classList.remove('triplet-active'));
   }
 
-  showNextQuestion():void {
+  showNextQuestion(): void {
     this.currentQuestion++;
     this.renderGameFields(this.currentQuestion);
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(group, page);
+    this.words = await getWords(String(group), String(page));
     this.getAnswers();
   }
 
@@ -182,11 +195,13 @@ export class SprintGame extends Control {
   getAnswers(): void {
     this.answers = [...this.words];
     let count = 0;
-    const newArray = [...Array(10)].map((elem, index) => {
-      const temp = this.answers.slice(count, 2 + 2 * index);
-      count = 2 + 2 * index;
-      return [...this.shuffleArray(temp)];
-    }).flat();
+    const newArray = [...Array(10)]
+      .map((elem, index) => {
+        const temp = this.answers.slice(count, 2 + 2 * index);
+        count = 2 + 2 * index;
+        return [...this.shuffleArray(temp)];
+      })
+      .flat();
     this.answers.length = 0;
     this.answers = [...newArray];
     this.renderGameFields(this.currentQuestion);

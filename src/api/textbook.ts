@@ -1,7 +1,9 @@
-import { Filter, user, USER_DATA, words } from '../constants/api';
+import {
+  Filter, user, USER_DATA, USER_WORDS, words,
+} from '../constants/api';
+import { Difficulty } from '../constants/textbook';
 import { IStorageData, IWord } from '../types/interface';
-import { getStorageData } from './localStorage';
-
+import { getStorageData, getStorageWords, updateStorageDifficult } from './localStorage';
 
 const getWords = async (group = '0', page = '0'): Promise<IWord[]> => {
   const response = await fetch(
@@ -14,7 +16,7 @@ const getWords = async (group = '0', page = '0'): Promise<IWord[]> => {
 };
 
 const getAggregatedWords = async (filter: string, group = '', page = ''): Promise<[] | IWord[]> => {
-  const storageData = getStorageData();
+  const storageData = getStorageData(USER_DATA);
   if (storageData) {
     const response = await fetch(
       `${user}/${storageData.userId}/aggregatedWords?${new URLSearchParams({
@@ -37,8 +39,8 @@ const getAggregatedWords = async (filter: string, group = '', page = ''): Promis
   return [];
 };
 
-const setDifficult = (wordID: string, difficulty: string): void => {
-  const storageData = getStorageData();
+const setDifficult = (wordID: string, difficulty: Difficulty): void => {
+  const storageData = getStorageData(USER_DATA);
   if (storageData) {
     fetch(`${user}/${storageData.userId}/words/${wordID}`, {
       method: 'POST',
@@ -48,13 +50,14 @@ const setDifficult = (wordID: string, difficulty: string): void => {
         Authorization: `Bearer ${storageData.token}`,
       },
     });
+    // updateStorageDifficult(wordID, difficulty);
   } else {
     throw new Error('no token');
   }
 };
 
-const updateDifficult = (wordID: string, difficulty: string): void => {
-  const storageData = getStorageData();
+const updateDifficult = (wordID: string, difficulty: Difficulty): void => {
+  const storageData = getStorageData(USER_DATA);
   if (storageData) {
     fetch(`${user}/${storageData.userId}/words/${wordID}`, {
       method: 'PUT',
@@ -64,9 +67,12 @@ const updateDifficult = (wordID: string, difficulty: string): void => {
         Authorization: `Bearer ${storageData.token}`,
       },
     });
+    updateStorageDifficult(wordID, difficulty);
   } else {
     throw new Error('no token');
   }
 };
 
-export { getWords, setDifficult, getAggregatedWords, updateDifficult };
+export {
+  getWords, setDifficult, getAggregatedWords, updateDifficult,
+};

@@ -1,7 +1,7 @@
 enum Difficulty {
   hard = 'hard',
   normal = 'normal',
-  easy = 'easy'
+  easy = 'easy',
 }
 
-export {Difficulty}
+export { Difficulty };

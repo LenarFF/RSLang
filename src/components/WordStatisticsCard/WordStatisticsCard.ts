@@ -1,8 +1,14 @@
-import { IGameStat } from '../../types/statistics';
 import { Control } from '../Control';
-import './StatisticsCard.scss';
+import './WordStatisticsCard.scss';
 
-class StatisticsCard extends Control {
+interface IStatisticCard {
+  answers: number;
+  right: number;
+  newWord: number;
+  learned: number;
+}
+
+class WordStatisticsCard extends Control {
   title: Control;
 
   learnedWords: Control;
@@ -11,10 +17,10 @@ class StatisticsCard extends Control {
 
   series: Control | null;
 
-  constructor(parent: HTMLElement, title: string, gameStat: IGameStat) {
+  constructor(parent: HTMLElement, title: string, gameStat: IStatisticCard) {
     super(parent, 'div', 'statistics-card');
     const {
-      answers, right, series, newWord, maxSeries,
+      answers, right, newWord, learned,
     } = gameStat;
     this.title = new Control(this.node, 'h3', 'statistics-card__title', title);
 
@@ -34,9 +40,9 @@ class StatisticsCard extends Control {
       this.node,
       'p',
       'statistics-card__text',
-      `Самая длинная серия: ${maxSeries}`,
+      `Изученные слова: ${learned}`,
     );
   }
 }
 
-export { StatisticsCard };
+export { WordStatisticsCard };

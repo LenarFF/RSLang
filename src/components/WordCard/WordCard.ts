@@ -1,6 +1,7 @@
 import { setDifficult, updateDifficult } from '../../api/textbook';
 import { baseURL, USER_DATA } from '../../constants/api';
 import { Difficulty } from '../../constants/textbook';
+import { Statistics } from '../../core/statistics';
 import { IWord } from '../../types/interface';
 import { AudioBtn } from '../AudioBtn/AudioBtn';
 import { Control } from '../Control';
@@ -112,16 +113,11 @@ class WordCard extends Control {
     const studiedBtn = new Control(this.controls.node, 'button', 'word-card__studied-btn');
     difficultBtn.node.setAttribute('title', 'Сложное слово');
     studiedBtn.node.setAttribute('title', 'Изученное слово');
-    difficultBtn.node.addEventListener('click', () =>
-      this.handleDifficult(wordID, [difficultBtn.node, studiedBtn.node]),
-    );
-    studiedBtn.node.addEventListener('click', () =>
-      this.handleStudied(wordID, [difficultBtn.node, studiedBtn.node]),
-    );
+    difficultBtn.node.addEventListener('click', () => this.handleDifficult(wordID, [difficultBtn.node, studiedBtn.node]));
+    studiedBtn.node.addEventListener('click', () => this.handleStudied(wordID, [difficultBtn.node, studiedBtn.node]));
   }
 
-  disableButtons = (btns: Element[]): void =>
-    btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
+  disableButtons = (btns: Element[]): void => btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
 
   handleDifficult(wordID: string, btns: Element[]): void {
     this.node.classList.remove('word-card_studied');
@@ -135,6 +131,7 @@ class WordCard extends Control {
     this.node.classList.toggle('word-card_studied');
     this.disableButtons(btns);
     setDifficult(wordID, Difficulty.easy);
+    Statistics.addLearned();
   }
 }
 

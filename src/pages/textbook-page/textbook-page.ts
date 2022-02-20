@@ -1,7 +1,9 @@
 import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
-import { Filter, MAX_GROUP, MAX_PAGES } from '../../constants/api';
+import {
+  Filter, MAX_GROUP, MAX_PAGES, USER_WORDS,
+} from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
@@ -48,9 +50,7 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) =>
-      this.selectGroup(e.target as HTMLElement),
-    );
+    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo());
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo());
     this.sprintBtn.node.setAttribute('href', Href.SPRINT);
@@ -71,6 +71,7 @@ export class TextbookPage extends Control {
     this.cardField.node.innerHTML = '';
     words.map((word) => {
       const userWordData = userWords.filter((userWord) => userWord._id === word.id)[0];
+
       const wordCard = new WordCard(this.cardField.node, word, this.group);
       if (userWordData && userWordData.userWord?.difficulty === Difficulty.hard) {
         wordCard.node.classList.add('word-card_difficult');
