@@ -18,5 +18,6 @@ export class LoginInput extends Control {
     const input = new Control(box.node, 'input', '');
     input.node.setAttribute('type', loginInputs[logDataNum].type);
     input.node.setAttribute('name', loginInputs[logDataNum].name);
+    input.node.setAttribute('placeholder', loginInputs[logDataNum].placeholder);
   }
 }

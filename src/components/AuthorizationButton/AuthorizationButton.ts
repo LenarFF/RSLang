@@ -33,8 +33,8 @@ export class AuthorizationButton extends Control {
     if (this.formContainer?.classList.contains('form-container__active')) {
       (this.formContainer.children[0] as HTMLFormElement).reset();
     }
-    for (const item of document.querySelectorAll('.error')) {
+    document.querySelectorAll('.error').forEach((item) => {
       item.innerHTML = '';
-    }
+    });
   }
 }

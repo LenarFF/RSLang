@@ -107,6 +107,7 @@ export class AuthorizationForm extends Control {
   }
 
   onInputDataCheck(values: IValue):void {
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     if (values.password === '') {
       this.changeErrorBox(this.mailError.node.innerText, InputErrors.empty);
     } else if (values.password.length < 8) {
@@ -116,8 +117,10 @@ export class AuthorizationForm extends Control {
     }
     if (values.email === '') {
       this.changeErrorBox(InputErrors.empty, this.passError.node.innerText);
-    } else {
+    } else if (values.email.match(pattern)) {
       this.changeErrorBox('', this.passError.node.innerText);
+    } else {
+      this.changeErrorBox(InputErrors.mailNotValid, this.passError.node.innerText);
     }
   }
 

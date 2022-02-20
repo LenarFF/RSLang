@@ -1,3 +1,4 @@
+
 @import '../../variables/colorVariables';
 
 .textbook-page {
@@ -6,21 +7,29 @@
   text-align: center;
   &__pages {
     display: flex;
-    width: 150px;
+    width: 300px;
+    align-items: center;
     justify-content: space-between;
     margin: 20px auto;
   }
   &__left-btn,
   &__right-btn {
-    width: 20px;
-    height: 20px;
+    width: 60px;
+    height: 30px;
+    background: #257b83;
     background-position: center;
     background-size: 15px 15px;
     background-repeat: no-repeat;
     cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 
+            5px 5px 7px rgba(0, 0, 0, 0.25), 
+      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   }
   &__left-btn {
     background-image: url(../../assets/img/arrow-left.png);
+    
   }
   &__right-btn {
     background-image: url(../../assets/img/arrow-right.png);
@@ -31,7 +40,7 @@
     right: 5%;
     display: flex;
     flex-direction: column;
-    height: 390px;
+    height: 350px;
     justify-content: space-between;
     &-btn {
       width: 50px;
@@ -40,6 +49,10 @@
       border: none;
       font-size: 32px;
       cursor: pointer;
+      box-shadow: 
+            5px 5px 7px rgba(0, 0, 0, 0.25), 
+      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
       &_1 {
         background-color: $groupBg1;
       }
@@ -58,9 +71,6 @@
       &_6 {
         background-color: $groupBg6;
       }
-      &_7 {
-        background-color: $groupBg7;
-      }
     }
   }
   &__games {
@@ -75,14 +85,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: $darkFontColor;
+      font-weight: 600;
+      color: #bcbcc0;
+      text-transform: uppercase;
       text-decoration: none;
       font-size: 14px;
-      width: 100px;
+      width: 120px;
       height: 50px;
-      border-radius: 50%;
+      border-radius: 20px;
       cursor: pointer;
-      border: 1px solid #000000;
+      background: #257b83;
+      box-shadow: 
+            5px 5px 7px rgba(0, 0, 0, 0.25), 
+      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
     }
   }
 }
