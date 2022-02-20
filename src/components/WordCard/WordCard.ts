@@ -1,5 +1,5 @@
 import { setDifficult, updateDifficult } from '../../api/textbook';
-import { baseURL, USER_DATA } from '../../constants/api';
+import { baseURL } from '../../constants/api';
 import { Difficulty } from '../../constants/textbook';
 import { Statistics } from '../../core/statistics';
 import { IWord } from '../../types/interface';
@@ -93,12 +93,12 @@ class WordCard extends Control {
     }
   }
 
-  removeDifficult(wordID: string) {
+  removeDifficult(wordID: string): void {
     updateDifficult(wordID, Difficulty.normal);
     this.destroy();
   }
 
-  setControlBtnDifficult(wordID: string) {
+  setControlBtnDifficult(wordID: string): void {
     const notDifficultBtn = new Control(
       this.controls.node,
       'button',
@@ -113,7 +113,8 @@ class WordCard extends Control {
     const studiedBtn = new Control(this.controls.node, 'button', 'word-card__studied-btn');
     difficultBtn.node.setAttribute('title', 'Сложное слово');
     studiedBtn.node.setAttribute('title', 'Изученное слово');
-    difficultBtn.node.addEventListener('click', () => this.handleDifficult(wordID, [difficultBtn.node, studiedBtn.node]));
+    difficultBtn.node.addEventListener('click',
+      () => this.handleDifficult(wordID, [difficultBtn.node, studiedBtn.node]));
     studiedBtn.node.addEventListener('click', () => this.handleStudied(wordID, [difficultBtn.node, studiedBtn.node]));
   }
 

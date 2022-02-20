@@ -14,7 +14,7 @@ class StatisticsCard extends Control {
   constructor(parent: HTMLElement, title: string, gameStat: IGameStat) {
     super(parent, 'div', 'statistics-card');
     const {
-      answers, right, series, newWord, maxSeries,
+      answers, right, newWord, maxSeries,
     } = gameStat;
     this.title = new Control(this.node, 'h3', 'statistics-card__title', title);
 

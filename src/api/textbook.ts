@@ -1,9 +1,9 @@
 import {
-  Filter, user, USER_DATA, USER_WORDS, words,
+  user, USER_DATA, words,
 } from '../constants/api';
 import { Difficulty } from '../constants/textbook';
-import { IStorageData, IWord } from '../types/interface';
-import { getStorageData, getStorageWords, updateStorageDifficult } from './localStorage';
+import { IWord } from '../types/interface';
+import { getStorageData, updateStorageDifficult } from './localStorage';
 
 const getWords = async (group = '0', page = '0'): Promise<IWord[]> => {
   const response = await fetch(
@@ -39,24 +39,6 @@ const getAggregatedWords = async (filter: string, group = '', page = ''): Promis
   return [];
 };
 
-const setDifficult = async (wordID: string, difficulty: Difficulty): Promise<void> => {
-  const storageData = getStorageData(USER_DATA);
-  if (storageData) {
-    const response = await fetch(`${user}/${storageData.userId}/words/${wordID}`, {
-      method: 'POST',
-      body: JSON.stringify({ difficulty }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${storageData.token}`,
-      },
-    });
-    if (response.status === 417) updateDifficult(wordID, difficulty);
-    // updateStorageDifficult(wordID, difficulty);
-  } else {
-    throw new Error('no token');
-  }
-};
-
 const updateDifficult = (wordID: string, difficulty: Difficulty): void => {
   const storageData = getStorageData(USER_DATA);
   if (storageData) {
@@ -69,6 +51,23 @@ const updateDifficult = (wordID: string, difficulty: Difficulty): void => {
       },
     });
     updateStorageDifficult(wordID, difficulty);
+  } else {
+    throw new Error('no token');
+  }
+};
+
+const setDifficult = async (wordID: string, difficulty: Difficulty): Promise<void> => {
+  const storageData = getStorageData(USER_DATA);
+  if (storageData) {
+    const response = await fetch(`${user}/${storageData.userId}/words/${wordID}`, {
+      method: 'POST',
+      body: JSON.stringify({ difficulty }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${storageData.token}`,
+      },
+    });
+    if (response.status === 417) updateDifficult(wordID, difficulty);
   } else {
     throw new Error('no token');
   }

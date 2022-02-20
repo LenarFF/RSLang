@@ -1,4 +1,4 @@
-import { IDate, IGeneralStat } from '../../types/statistics';
+import { IGeneralStat } from '../../types/statistics';
 import { Control } from '../Control';
 import { StatisticsCard } from '../StatisticsCard/StatisticsCard';
 import { WordStatisticsCard } from '../WordStatisticsCard/WordStatisticsCard';
@@ -11,7 +11,8 @@ class DayStatistics extends Control {
 
   constructor(parent: HTMLElement, general: IGeneralStat, date: string) {
     super(parent, 'div', 'statistics-day');
-    this.title = new Control(this.node, 'h3', 'statistics-day__title', date);
+    const newDate = date === new Date().toISOString().slice(0, 10) ? 'Сегодня' : date;
+    this.title = new Control(this.node, 'h3', 'statistics-day__title', newDate);
 
     const dayStats = Object.keys(general.games).reduce(
       (prev, game) => {
@@ -22,7 +23,10 @@ class DayStatistics extends Control {
         return prev;
       },
       {
-        answers: 0, right: 0, newWord: 0, learned: 0,
+        answers: 0,
+        right: 0,
+        newWord: 0,
+        learned: 0,
       },
     );
 

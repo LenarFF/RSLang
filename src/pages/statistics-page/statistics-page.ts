@@ -11,8 +11,6 @@ class StatisticsPage extends Control {
     Object.keys(Statistics.data.optional).map(
       (date) => new DayStatistics(this.node, Statistics.data.optional[date], date),
     );
-
-    console.log(Statistics.data.optional);
   }
 }
 

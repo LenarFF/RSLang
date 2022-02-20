@@ -1,7 +1,7 @@
-import { getStorageData, getStorageStat } from '../api/localStorage';
+import { getStorageStat } from '../api/localStorage';
 import { getStatistics, setStatistic } from '../api/statistics';
 import { getAggregatedWords } from '../api/textbook';
-import { Filter, USER_STATISTICS, USER_WORDS } from '../constants/api';
+import { Filter, USER_STATISTICS } from '../constants/api';
 import { IWord } from '../types/interface';
 import { IStat } from '../types/statistics';
 
@@ -43,20 +43,16 @@ class Statistics {
     if (stat) Statistics.data = stat;
   }
 
-  setStat = async () => {
-    const statResp = await getStatistics();
+  setStat = async (): Promise<void> => {
+    const statResp = await getStatistics(Statistics.data);
     Statistics.userWords = await getAggregatedWords(Filter.all);
     if (statResp) {
       const stat = { learnedWords: statResp.learnedWords, optional: statResp.optional };
       Statistics.data = stat;
-      // localStorage.setItem(USER_WORDS, JSON.stringify(Statistics.userWords));
-      // localStorage.setItem(USER_STATISTICS, JSON.stringify(stat));
     }
   };
 
   static addLearned(): void {
-    console.log('learned');
-
     if (Statistics.data.optional[Statistics.date]) {
       Statistics.data.optional[Statistics.date].learnedWords++;
       setStatistic(Statistics.data);
@@ -73,7 +69,7 @@ class Statistics {
     }
   }
 
-  static addTodaysStat = () => {
+  static addTodaysStat = (): void => {
     Statistics.data.optional[Statistics.date] = Statistics.defaultStat;
   };
 
@@ -85,7 +81,7 @@ class Statistics {
     }
   };
 
-  static handleAnswer = (wordID: string, game: string, correctness: boolean) => {
+  static handleAnswer = (wordID: string, game: string, correctness: boolean): void => {
     if (Statistics.data.optional[Statistics.date]) {
       Statistics.data.optional[Statistics.date].games[game].answers++;
       if (correctness) {

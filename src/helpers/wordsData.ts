@@ -1,7 +1,7 @@
 import { Difficulty } from '../constants/textbook';
 import { Statistics } from '../core/statistics';
 
-const setEasyDifficulty = (difficulty: Difficulty, series: number, wordID: string): Difficulty => {
+const setEasyDifficulty = (difficulty: Difficulty, series: number): Difficulty => {
   if (
     (series > 1 && difficulty === Difficulty.normal)
     || (series > 3 && difficulty === Difficulty.hard)
@@ -12,7 +12,7 @@ const setEasyDifficulty = (difficulty: Difficulty, series: number, wordID: strin
   return difficulty;
 };
 
-const setNormalDifficulty = (difficulty: Difficulty, wordID: string): Difficulty => {
+const setNormalDifficulty = (difficulty: Difficulty): Difficulty => {
   if (difficulty === Difficulty.easy) {
     Statistics.removeLearned();
     return Difficulty.normal;

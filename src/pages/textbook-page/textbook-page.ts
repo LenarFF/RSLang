@@ -2,12 +2,11 @@ import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import {
-  Filter, MAX_GROUP, MAX_PAGES, USER_WORDS,
+  Filter, MAX_GROUP, MAX_PAGES,
 } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
-import { IWord } from '../../types/interface';
 import { Difficulty } from '../../constants/textbook';
 
 export class TextbookPage extends Control {
@@ -57,11 +56,12 @@ export class TextbookPage extends Control {
     this.challengeBtn.node.setAttribute('href', Href.AUDIO);
   }
 
-  renderStatistics(parent: HTMLElement, right: number, wrong: number) {
+  renderStatistics = (parent: HTMLElement, right: number, wrong: number): void => {
     const stat = new Control(parent, 'div', 'word-card__statistics');
-    new Control(stat.node, 'h4', 'word-card__statistics-title', 'Ответы в играх');
-    new Control(stat.node, 'p', 'word-card__statistics-count', `Верно: ${right} Неверно: ${wrong}`);
-  }
+    const title = new Control(null, 'h4', 'word-card__statistics-title', 'Ответы в играх');
+    const answers = new Control(null, 'p', 'word-card__statistics-count', `Верно: ${right} Неверно: ${wrong}`);
+    stat.node.append(title.node, answers.node);
+  };
 
   async renderCards(): Promise<void> {
     const [words, userWords] = await Promise.all([
@@ -93,7 +93,7 @@ export class TextbookPage extends Control {
     });
   }
 
-  async renderDifficultCards() {
+  async renderDifficultCards(): Promise<void> {
     const words = await getAggregatedWords(Filter.difficult);
     this.cardField.node.innerHTML = '';
     if (words) {
