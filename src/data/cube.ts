@@ -4,10 +4,3 @@ export const sideName = [
   'SPRINT',
   'GAMES!',
 ];
-
-export const titleClass = [
-  'AUDIO',
-  'PLAY!',
-  'SPRINT',
-  'GAMES!',
-];
