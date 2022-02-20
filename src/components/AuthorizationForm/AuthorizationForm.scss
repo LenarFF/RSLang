@@ -18,6 +18,7 @@
         inset -5px -5px 15px rgba(0, 0, 0, 0.75);
   border-radius: 30px;
   padding: 50px;
+  z-index: 100;
   &__active {
     transition: 1.4s all;
     transform: translateX(50%);
