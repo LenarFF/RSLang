@@ -1,6 +1,4 @@
-import {
-  user, USER_DATA, words,
-} from '../constants/api';
+import { user, USER_DATA, words } from '../constants/api';
 import { Difficulty } from '../constants/textbook';
 import { IWord } from '../types/interface';
 import { getStorageData, updateStorageDifficult } from './localStorage';
@@ -16,27 +14,31 @@ const getWords = async (group = '0', page = '0'): Promise<IWord[]> => {
 };
 
 const getAggregatedWords = async (filter: string, group = '', page = ''): Promise<[] | IWord[]> => {
-  const storageData = getStorageData(USER_DATA);
-  if (storageData) {
-    const response = await fetch(
-      `${user}/${storageData.userId}/aggregatedWords?${new URLSearchParams({
-        group,
-        page,
-        wordsPerPage: '4000',
-        filter,
-      })}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${storageData.token}`,
+  try {
+    const storageData = getStorageData(USER_DATA);
+    if (storageData) {
+      const response = await fetch(
+        `${user}/${storageData.userId}/aggregatedWords?${new URLSearchParams({
+          group,
+          page,
+          wordsPerPage: '4000',
+          filter,
+        })}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storageData.token}`,
+          },
         },
-      },
-    );
-    const data = await response.json();
-    return data[0].paginatedResults;
+      );
+      const data = await response.json();
+      return data[0].paginatedResults;
+    }
+    return [];
+  } catch {
+    return [];
   }
-  return [];
 };
 
 const updateDifficult = (wordID: string, difficulty: Difficulty): void => {
