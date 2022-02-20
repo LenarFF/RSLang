@@ -10,12 +10,15 @@ export class Cube extends Control {
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'cube');
 
-    [...Array(4)].map((elem, index) => {
-      const cubeSide = new Control(this.side.node, 'span', 'cube-side');
-      cubeSide.node.setAttribute('style', `--i:${index}`);
-      new Control(cubeSide.node, 'h2', '', sideName[index]);
-      new Control(cubeSide.node, 'h2', '', sideName[index]);
-      return elem;
-    });
+    [...Array(4)]
+      .map((elem, index) => [
+        new Control(null, 'h2', '', sideName[index]).node,
+        new Control(null, 'h2', '', sideName[index]).node,
+      ])
+      .forEach((elem, index) => {
+        const cubeSide = new Control(this.side.node, 'span', 'cube-side');
+        cubeSide.node.setAttribute('style', `--i:${index}`);
+        cubeSide.node.append(...elem.flat());
+      });
   }
 }
