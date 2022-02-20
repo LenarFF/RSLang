@@ -1,5 +1,8 @@
+import { Difficulty } from '../constants/textbook';
+
 interface IWord {
-  id: 'string';
+  id?: 'string';
+  _id?: 'string';
   group: 0;
   page: 0;
   word: 'string';
@@ -13,6 +16,7 @@ interface IWord {
   wordTranslate: 'string';
   textMeaningTranslate: 'string';
   textExampleTranslate: 'string';
+  userWord?: { difficulty: Difficulty, optional?: IOptional };
 }
 
 interface IValue {
@@ -20,4 +24,19 @@ interface IValue {
   password: string;
 }
 
-export { IWord, IValue };
+interface IStorageData {
+  message: string;
+  refreshToken: string;
+  token: string;
+  userId: string;
+}
+
+interface IOptional {
+  right: number;
+  wrong: number;
+  series: number;
+}
+
+export {
+  IWord, IValue, IStorageData, IOptional,
+};

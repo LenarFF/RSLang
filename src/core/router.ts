@@ -49,11 +49,7 @@ export const routing: IRoute[] = [
   {
     name: Href.STAT.slice(1),
     component: (): void => {
-      const statistics = new StatisticsPage(
-        document.body,
-        'main',
-        'main statistics-page',
-      );
+      const statistics = new StatisticsPage(document.body);
       const footer = new Footer(document.body);
       routingPagesElements.push(statistics);
       routingPagesElements.push(footer);

@@ -1,10 +1,13 @@
-import { getWords } from '../../api/textbook';
+import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
-import { MAX_GROUP, MAX_PAGES } from '../../constants/api';
+import {
+  Filter, MAX_GROUP, MAX_PAGES,
+} from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
+import { Difficulty } from '../../constants/textbook';
 
 export class TextbookPage extends Control {
   title = new Control(this.node, 'h2', 'textbook-page__title', 'Электронный учебник');
@@ -53,10 +56,49 @@ export class TextbookPage extends Control {
     this.challengeBtn.node.setAttribute('href', Href.AUDIO);
   }
 
+  renderStatistics = (parent: HTMLElement, right: number, wrong: number): void => {
+    const stat = new Control(parent, 'div', 'word-card__statistics');
+    const title = new Control(null, 'h4', 'word-card__statistics-title', 'Ответы в играх');
+    const answers = new Control(null, 'p', 'word-card__statistics-count', `Верно: ${right} Неверно: ${wrong}`);
+    stat.node.append(title.node, answers.node);
+  };
+
   async renderCards(): Promise<void> {
-    const words = await getWords(this.group, this.page);
+    const [words, userWords] = await Promise.all([
+      getWords(String(this.group), String(this.page)),
+      getAggregatedWords(Filter.all, String(this.group), String(this.page)),
+    ]);
     this.cardField.node.innerHTML = '';
-    words.map((word) => new WordCard(this.cardField.node, word, this.group));
+    words.map((word) => {
+      const userWordData = userWords.filter((userWord) => userWord._id === word.id)[0];
+
+      const wordCard = new WordCard(this.cardField.node, word, this.group);
+      if (userWordData && userWordData.userWord?.difficulty === Difficulty.hard) {
+        wordCard.node.classList.add('word-card_difficult');
+        wordCard.disableButtons([...wordCard.controls.node.children]);
+      } else if (userWordData && userWordData.userWord?.difficulty === Difficulty.easy) {
+        wordCard.node.classList.add('word-card_studied');
+        wordCard.disableButtons([...wordCard.controls.node.children]);
+      }
+      if (userWordData && userWordData.userWord && userWordData.userWord.optional) {
+        this.renderStatistics(
+          wordCard.text.node,
+          userWordData.userWord.optional?.right,
+          userWordData.userWord?.optional?.wrong,
+        );
+      } else {
+        this.renderStatistics(wordCard.text.node, 0, 0);
+      }
+      return wordCard;
+    });
+  }
+
+  async renderDifficultCards(): Promise<void> {
+    const words = await getAggregatedWords(Filter.difficult);
+    this.cardField.node.innerHTML = '';
+    if (words) {
+      words.map((word) => new WordCard(this.cardField.node, word, MAX_GROUP));
+    }
   }
 
   renderGroup(): void {
@@ -72,6 +114,13 @@ export class TextbookPage extends Control {
 
       return groupBtn;
     });
+    const difficultGroup = new Control(
+      this.groupField.node,
+      'button',
+      `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
+      '!',
+    );
+    difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
   }
 
   handleLeft(): void {
@@ -97,6 +146,6 @@ export class TextbookPage extends Control {
   addWordInfo(): void {
     state.group = this.group;
     state.page = this.page;
-    window.location.hash = '#mini-game';
+    window.location.hash = Href.GAMES;
   }
 }

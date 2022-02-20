@@ -25,7 +25,7 @@ class GameResults extends Control {
       ? new ResultAnswers(this.container.node, 'Верно', rightAnswers, true)
       : null;
     this.wrong = wrongAnswers.length
-      ? new ResultAnswers(this.container.node, 'Не верно', wrongAnswers, false)
+      ? new ResultAnswers(this.container.node, 'Неверно', wrongAnswers, false)
       : null;
     this.node.addEventListener('click', (e) => this.removeResults(e, parent, selectWindow));
   }

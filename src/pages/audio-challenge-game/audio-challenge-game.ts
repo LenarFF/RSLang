@@ -1,9 +1,12 @@
+import { setUserAnswer } from '../../api/games';
 import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
 import { GameResults } from '../../components/GameResults/GameResults';
 import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { Statistics } from '../../core/statistics';
 import { IWord } from '../../types/interface';
+import { Games } from '../../types/statistics';
 import './audio-challenge-game.scss';
 
 class AudioChallengeGame extends Control {
@@ -82,17 +85,25 @@ class AudioChallengeGame extends Control {
     if (this.controlBtn.node.dataset.next === 'true') {
       this.showNextQuestion();
     } else {
+      setUserAnswer(this.words[this.currentQuestion].id as string, false);
+      Statistics.handleAnswer(this.words[this.currentQuestion].id as string, Games.audio, false);
       this.showRightAnswer(this.words[this.currentQuestion]);
       this.wrongAnswers.push(this.words[this.currentQuestion]);
     }
   }
 
-  checkAnswer = (answerBtn: HTMLElement, rightAnswer: IWord): void => {
-    if (answerBtn.dataset.word !== rightAnswer.word) {
-      answerBtn.classList.add('challenge-page__variant-btn_wrong');
-      this.wrongAnswers.push(rightAnswer);
-    } else {
-      this.rightAnswers.push(rightAnswer);
+  checkAnswer = async (answerBtn: HTMLElement, rightAnswer: IWord): Promise<void> => {
+    if (rightAnswer.id) {
+      if (answerBtn.dataset.wordid !== rightAnswer.id) {
+        answerBtn.classList.add('challenge-page__variant-btn_wrong');
+        this.wrongAnswers.push(rightAnswer);
+        setUserAnswer(rightAnswer.id, false);
+        Statistics.handleAnswer(rightAnswer.id, Games.audio, false);
+      } else {
+        this.rightAnswers.push(rightAnswer);
+        setUserAnswer(rightAnswer.id, true);
+        Statistics.handleAnswer(rightAnswer.id, Games.audio, true);
+      }
     }
   };
 
@@ -107,7 +118,7 @@ class AudioChallengeGame extends Control {
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(group, page);
+    this.words = await getWords(String(group), String(page));
     this.getAnswers();
   }
 
@@ -131,7 +142,7 @@ class AudioChallengeGame extends Control {
         'challenge-page__variant-btn',
         `${index + 1} ${word.wordTranslate}`,
       );
-      answerBtn.node.setAttribute('data-word', word.word);
+      if (word.id) answerBtn.node.setAttribute('data-wordid', word.id);
       answerBtn.node.setAttribute('data-num', String(index + 1));
       this.answerBtns.push(answerBtn.node);
       return answerBtn;
@@ -150,7 +161,7 @@ class AudioChallengeGame extends Control {
 
   showRightAnswer(rightAnswer: IWord): void {
     const rightBtns = this.answerBtns.filter(
-      (btn) => (btn as HTMLElement).dataset.word === rightAnswer.word,
+      (btn) => (btn as HTMLElement).dataset.wordid === rightAnswer.id,
     );
     rightBtns[0].classList.add('challenge-page__variant-btn_right');
     this.controlBtn.node.innerText = 'следующий';
@@ -162,7 +173,7 @@ class AudioChallengeGame extends Control {
 
   handleAnswer = (e: MouseEvent): void => {
     const target = e.target as HTMLElement;
-    const answer = target.dataset.word;
+    const answer = target.dataset.wordid;
     const rightAnswer = this.words[this.currentQuestion];
     if (!answer || !!target.getAttribute('disabled')) return;
     this.checkAnswer(target, rightAnswer);
