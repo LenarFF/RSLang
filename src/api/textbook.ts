@@ -39,10 +39,10 @@ const getAggregatedWords = async (filter: string, group = '', page = ''): Promis
   return [];
 };
 
-const setDifficult = (wordID: string, difficulty: Difficulty): void => {
+const setDifficult = async (wordID: string, difficulty: Difficulty): Promise<void> => {
   const storageData = getStorageData(USER_DATA);
   if (storageData) {
-    fetch(`${user}/${storageData.userId}/words/${wordID}`, {
+    const response = await fetch(`${user}/${storageData.userId}/words/${wordID}`, {
       method: 'POST',
       body: JSON.stringify({ difficulty }),
       headers: {
@@ -50,6 +50,7 @@ const setDifficult = (wordID: string, difficulty: Difficulty): void => {
         Authorization: `Bearer ${storageData.token}`,
       },
     });
+    if (response.status === 417) updateDifficult(wordID, difficulty);
     // updateStorageDifficult(wordID, difficulty);
   } else {
     throw new Error('no token');

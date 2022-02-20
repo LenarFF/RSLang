@@ -1,3 +1,4 @@
+
 import { setUserAnswer } from '../../api/games';
 import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
@@ -83,9 +84,10 @@ class AudioChallengeGame extends Control {
 
   handleControl(): void {
     if (this.controlBtn.node.dataset.next === 'true') {
-      this.showNextQuestion();
-      setUserAnswer(this.words[this.currentQuestion].id as string, false);
+      this.showNextQuestion();      
     } else {
+      setUserAnswer(this.words[this.currentQuestion].id as string, false);
+      Statistics.handleAnswer(this.words[this.currentQuestion].id as string, Games.audio, false);
       this.showRightAnswer(this.words[this.currentQuestion]);
       this.wrongAnswers.push(this.words[this.currentQuestion]);
     }

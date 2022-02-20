@@ -5,6 +5,7 @@
   margin: 0 auto;
   max-width: 1400px;
   text-align: center;
+  min-height: 100vh;
   &__pages {
     display: flex;
     width: 300px;
@@ -70,6 +71,9 @@
       }
       &_6 {
         background-color: $groupBg6;
+      }
+      &_7 {
+        background-color: $groupBg7;
       }
     }
   }

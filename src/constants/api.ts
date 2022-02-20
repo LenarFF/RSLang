@@ -13,7 +13,11 @@ const Filter = {
   difficult: JSON.stringify({ $and: [{ 'userWord.difficulty': 'hard' }] }),
   easy: JSON.stringify({ $and: [{ 'userWord.difficulty': 'easy' }] }),
   all: JSON.stringify({
-    $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord.difficulty': 'easy' }],
+    $or: [
+      { 'userWord.difficulty': 'hard' },
+      { 'userWord.difficulty': 'easy' },
+      { 'userWord.difficulty': 'normal' },
+    ],
   }),
 };
 
