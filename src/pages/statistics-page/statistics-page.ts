@@ -5,7 +5,8 @@ import './statisticsPage.scss';
 
 class StatisticsPage extends Control {
   title = new Control(this.node, 'h2', 'statistics-page__title', 'Статистика');
-  cardField = new Control(this.node, 'div', 'statistics-page__cardfield')
+
+  cardField = new Control(this.node, 'div', 'statistics-page__cardfield');
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'statistics-page');

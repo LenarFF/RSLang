@@ -6,7 +6,7 @@ enum Difficulty {
 
 enum GamesName {
   sprint = 'sprint',
-  audio = 'audio'
+  audio = 'audio',
 }
 
 export { Difficulty, GamesName };
