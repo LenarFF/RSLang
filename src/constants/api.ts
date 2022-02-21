@@ -8,6 +8,7 @@ const USER_DATA = 'RSLangMK-user-data';
 const WORDS_ON_PAGE = 20;
 const USER_WORDS = 'RSLangMK-user-words';
 const USER_STATISTICS = 'RSLangMK-user-statistics';
+const TEXTBOOK_INFO = 'RSLangMK-textbook-info';
 
 const Filter = {
   difficult: JSON.stringify({ $and: [{ 'userWord.difficulty': 'hard' }] }),
@@ -32,4 +33,5 @@ export {
   USER_DATA,
   USER_WORDS,
   USER_STATISTICS,
+  TEXTBOOK_INFO,
 };

@@ -10,6 +10,7 @@ import './sprint-game.scss';
 import { setUserAnswer } from '../../api/games';
 import { Statistics } from '../../core/statistics';
 import { Games } from '../../types/statistics';
+import { state } from '../../state';
 
 export class SprintGame extends Control {
   words: IWord[];
@@ -188,8 +189,10 @@ export class SprintGame extends Control {
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(String(group), String(page));
+    this.words = state.words ? state.words: await getWords(String(group), String(page));
     this.getAnswers();
+    console.log(this.words);
+    
   }
 
   getRandomNum = (max: number): number => Math.floor(Math.random() * max);

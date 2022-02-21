@@ -9,11 +9,14 @@ class SprintPage extends Control {
 
   constructor(parent: HTMLElement) {
     super(parent, 'div', 'sprint-page__wrap');
-    if (state.group !== null && state.page !== null) {
+    console.log(state.group, state.page, state.words);
+    
+    if (state.group !== null && state.page !== null && state.words) {
       this.select.node.classList.add('hidden');
       const game = new SprintGame(state.group, this.select.node, state.page);
       this.node.append(game.node);
       state.group = null;
+      state.words = null;
     }
   }
 }

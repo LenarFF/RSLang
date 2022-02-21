@@ -1,5 +1,3 @@
 const SPRINT_TIMER = 60;
 
-export {
-  SPRINT_TIMER,
-};
+export { SPRINT_TIMER };
