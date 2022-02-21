@@ -76,6 +76,10 @@ export class SprintGame extends Control {
     this.tripletArr = [];
     this.gameResults = null;
     this.selectWindow = selectWindow;
+    this.rightAnswers = [];
+    this.wrongAnswers = [];
+    this.answers = [];
+    this.getAllWords(group, page);
 
     [...new Array(3)].forEach((elem, index) => {
       const triplet = new Control(this.triplets.node, 'span', 'sprint-page__triplet', '');
@@ -85,17 +89,17 @@ export class SprintGame extends Control {
     });
     this.wrongBtn.node.setAttribute('data-answer', 'false');
     this.rightBtn.node.setAttribute('data-answer', 'true');
-    this.rightAnswers = [];
-    this.wrongAnswers = [];
-    this.answers = [];
-    this.getAllWords(group, page);
     this.audioRight.node.setAttribute('src', audioSrc.right);
     this.audioWrong.node.setAttribute('src', audioSrc.wrong);
     (this.audioRight.node as HTMLAudioElement).volume = 0.5;
     (this.audioWrong.node as HTMLAudioElement).volume = 0.5;
+
     this.answersBox.node.addEventListener('click', (e) => this.handleControl(e));
+    document.addEventListener('keydown', this.handleKey);
+
     this.timer.start(SPRINT_TIMER);
     this.timer.onTimeout = () => {
+      document.removeEventListener('keydown', this.handleKey);
       this.timer.stop();
       this.gameResults = new GameResults(
         this,
@@ -105,6 +109,8 @@ export class SprintGame extends Control {
       );
     };
   }
+
+  handleKey = (e: KeyboardEvent) => this.handleKeyboard(e);
 
   handleControl(e: MouseEvent): void {
     if ((e.target as HTMLElement).dataset.answer !== undefined) {
@@ -132,29 +138,31 @@ export class SprintGame extends Control {
     }
   }
 
-  indicateAnswer(value: string | undefined): void {
-    // console.log(this.tripletsCount);
+  handleKeyboard(e: KeyboardEvent): void {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      if (e.key === 'ArrowLeft') {
+        this.checkAnswer('false');
+      } else {
+        this.checkAnswer('true');
+      }
+      this.showNextQuestion();
+    }
+  }
+
+  indicateAnswer(value: string | undefined):void {
     if (value === 'true') {
       this.tripletsCount++;
-      // console.log(this.tripletsCount);
       this.currScore += 10 * this.incrementFactor;
       if (this.tripletsCount <= 3) {
         if (this.tripletsCount !== 3) {
-          // console.log('add triplet-active');
           this.triplets.node.children[this.tripletsCount].classList.add('triplet-active');
         } else {
-          // console.log('clear1');
           this.clearTriplets();
           this.incrementFactor++;
           this.tripletsCount = -1;
         }
-      } else {
-        // console.log('clear2');
-        this.tripletsCount = -1;
-        this.clearTriplets();
       }
     } else {
-      // console.log('clear3');
       this.incrementFactor = 1;
       this.tripletsCount = -1;
       this.clearTriplets();
@@ -164,6 +172,7 @@ export class SprintGame extends Control {
   renderGameFields(nextNum: number): void {
     if (this.currentQuestion > this.words.length - 1) {
       this.timer.stop();
+      document.removeEventListener('keydown', this.handleKey);
       this.gameResults = new GameResults(
         this,
         this.rightAnswers,
@@ -215,6 +224,8 @@ export class SprintGame extends Control {
   playAudio(isCorrect: string): void {
     const audioRight = this.audioRight.node as HTMLAudioElement;
     const audioWrong = this.audioWrong.node as HTMLAudioElement;
+    (this.audioRight.node as HTMLAudioElement).volume = 0.5;
+    (this.audioWrong.node as HTMLAudioElement).volume = 0.5;
     if (isCorrect === 'true') {
       audioRight.play();
       audioRight.currentTime = 0;

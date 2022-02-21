@@ -4,4 +4,9 @@ enum Difficulty {
   easy = 'easy',
 }
 
-export { Difficulty };
+enum GamesName {
+  sprint = 'sprint',
+  audio = 'audio',
+}
+
+export { Difficulty, GamesName };

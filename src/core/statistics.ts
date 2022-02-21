@@ -44,12 +44,13 @@ class Statistics {
   }
 
   setStat = async (): Promise<void> => {
-    const statResp = await getStatistics(Statistics.data);
+    const statResp = await getStatistics(Statistics.data);    
     Statistics.userWords = await getAggregatedWords(Filter.all);
 
     if (statResp) {
       const stat = { learnedWords: statResp.learnedWords, optional: statResp.optional };
       Statistics.data = stat;
+      localStorage.setItem(USER_STATISTICS, JSON.stringify(stat));
     }
   };
 
