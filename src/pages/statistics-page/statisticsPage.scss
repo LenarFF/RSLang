@@ -1,0 +1,14 @@
+.statistics-page {
+  background: linear-gradient(180deg, #84f0c7,#00a6f4,#292acf);
+  min-height: calc(100vh - 60px);
+  padding-bottom: 20px;
+  text-align: center;
+  &__title {
+    padding: 30px 0;
+  }
+  &__cardfield {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}

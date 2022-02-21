@@ -1,0 +1,52 @@
+@import '../../variables/colorVariables';
+
+.developer-card {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  gap: 40px;
+  &__image {
+    height: 250px;
+    border-radius: 100%;
+    border: 2px solid;
+    @media (max-width: 800px) {
+      height: 150px;
+    }
+  }
+  &__figcaption {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  &__github {
+    text-decoration: none;
+    margin: 10px 0;
+  }
+  &__name {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 180px;
+    margin: 0 auto;
+    color: $lightFontColor;
+    transition: color 0.3s;
+    &:hover {
+      color: $darkFontColor;
+    }
+    &::before {
+      content: '';
+      background-image: url(../../assets/img/github.svg);
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  &__description {
+    width: 200px;
+    &-li {
+      text-align: left;
+      padding: 5px;
+    }
+  }
+}
