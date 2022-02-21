@@ -55,7 +55,8 @@ module.exports = ({develop}) => ({
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/index.html",
+      favicon: "./src/assets/rs-lang.png",
     }),
     new MiniCssExtractPlugin({
       filename: "[name][contenthash].css"
