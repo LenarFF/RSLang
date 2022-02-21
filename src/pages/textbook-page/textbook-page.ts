@@ -2,7 +2,7 @@ import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import {
-  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO,
+  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO, WORDS_ON_PAGE,
 } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
@@ -41,7 +41,6 @@ export class TextbookPage extends Control {
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'textbook-page');
-
     this.loadTextbookInfo();
     this.renderCards();
     this.renderGroup();
@@ -61,6 +60,24 @@ export class TextbookPage extends Control {
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
     window.addEventListener('beforeunload', () => this.saveTextbookInfo());
+    window.addEventListener('click', () => this.addLearnedStylePage());
+  }
+
+  addLearnedStylePage(): void {
+    const cards = [...this.cardField.node.children];
+    const markedCards = cards.filter(
+      (card) => card.classList.contains('word-card_difficult')
+        || card.classList.contains('word-card_studied'),
+    );
+    if (markedCards.length >= WORDS_ON_PAGE) {
+      this.pages.node.classList.add('textbook-page__marked');
+      this.challengeBtn.node.setAttribute('disabled', 'true');
+      this.sprintBtn.node.setAttribute('disabled', 'true');
+    } else {
+      this.pages.node.classList.remove('textbook-page__marked');
+      this.challengeBtn.node.removeAttribute('disabled');
+      this.sprintBtn.node.removeAttribute('disabled');
+    }
   }
 
   loadTextbookInfo(): void {
@@ -91,8 +108,9 @@ export class TextbookPage extends Control {
   async renderCards(): Promise<void> {
     const [words, userWords] = await Promise.all([
       getWords(String(this.group), String(this.page)),
-      getAggregatedWords(Filter.all, String(this.group), String(this.page)),
+      getAggregatedWords(Filter.all),
     ]);
+
     this.words = words;
     this.cardField.node.innerHTML = '';
     words.map((word) => {
@@ -117,6 +135,7 @@ export class TextbookPage extends Control {
       }
       return wordCard;
     });
+    this.addLearnedStylePage();
     this.pages.node.classList.remove('hidden');
   }
 
@@ -174,19 +193,30 @@ export class TextbookPage extends Control {
   }
 
   async addWordInfo(href: Href): Promise<void> {
+    this.challengeBtn.node.setAttribute('disabled', 'true');
+    this.sprintBtn.node.setAttribute('disabled', 'true');
     state.group = this.group;
     state.page = this.page;
-    const userWords = await getAggregatedWords(Filter.easy, String(this.group), String(this.page));
+    const userWords = await getAggregatedWords(Filter.easy);
     const easyWords = userWords.filter(
       (userWord) => userWord.userWord?.difficulty === Difficulty.easy,
     );
     const easyWordsID = easyWords.map((item) => item._id);
-    state.words = this.words.filter((word) => {
+    const notEasyWords = this.words.filter((word) => {
       if (word.id) {
         return !easyWordsID.includes(word.id);
       }
       return undefined;
     });
-    window.location.hash = href;
+
+    if (notEasyWords.length < WORDS_ON_PAGE / 2) {
+      this.page = this.page < MAX_PAGES ? this.page + 1 : 0;
+      const nextPageWords = await getWords(String(this.group), String(this.page));
+      this.words = [...this.words, ...nextPageWords];
+      this.addWordInfo(href);
+    } else {
+      state.words = notEasyWords.slice(0, WORDS_ON_PAGE - 1);
+      window.location.hash = href;
+    }
   }
 }

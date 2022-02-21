@@ -2,7 +2,7 @@ import { Control } from '../../components/Control';
 import { getWords } from '../../api/textbook';
 import { GameResults } from '../../components/GameResults/GameResults';
 import { Timer } from '../../components/Timer/Timer';
-import { MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { MAX_PAGES } from '../../constants/api';
 import { SPRINT_TIMER } from '../../constants/sprint';
 import { IWord } from '../../types/interface';
 import { audioSrc } from '../../data/sprint';
