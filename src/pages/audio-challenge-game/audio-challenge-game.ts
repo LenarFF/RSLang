@@ -5,6 +5,7 @@ import { Control } from '../../components/Control';
 import { GameResults } from '../../components/GameResults/GameResults';
 import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
 import { Statistics } from '../../core/statistics';
+import { audioSrc } from '../../data/sprint';
 import { IWord } from '../../types/interface';
 import { Games } from '../../types/statistics';
 import './audio-challenge-game.scss';
@@ -57,7 +58,14 @@ class AudioChallengeGame extends Control {
     this.controlBtn.node.addEventListener('click', () => this.handleControl());
     this.variants.node.addEventListener('click', (e) => this.handleAnswer(e));
     document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+    this.audioImg.node.addEventListener('click', () => this.playAudio(this.words[this.currentQuestion].audio));
   }
+
+  playSound = (correctness: boolean): void => {
+    const audio = new Audio(correctness ? audioSrc.right : audioSrc.wrong);
+    audio.volume = 0.5;
+    audio.play();
+  };
 
   showNextQuestion(): void {
     if (this.currentQuestion >= WORDS_ON_PAGE - 1) {
@@ -76,6 +84,7 @@ class AudioChallengeGame extends Control {
     this.getAnswers();
     this.top.node.innerHTML = '';
     this.audioImg = new Control(this.top.node, 'div', 'challenge-page__audio-img');
+    this.audioImg.node.addEventListener('click', () => this.playAudio(this.words[this.currentQuestion].audio));
     this.enableBtn(this.answerBtns);
     this.controlBtn.node.innerText = 'не знаю';
     this.controlBtn.node.setAttribute('data-next', 'false');
@@ -89,6 +98,7 @@ class AudioChallengeGame extends Control {
       Statistics.handleAnswer(this.words[this.currentQuestion].id as string, Games.audio, false);
       this.showRightAnswer(this.words[this.currentQuestion]);
       this.wrongAnswers.push(this.words[this.currentQuestion]);
+      this.playSound(false);
     }
   }
 
@@ -99,10 +109,12 @@ class AudioChallengeGame extends Control {
         this.wrongAnswers.push(rightAnswer);
         setUserAnswer(rightAnswer.id, false);
         Statistics.handleAnswer(rightAnswer.id, Games.audio, false);
+        this.playSound(false);
       } else {
         this.rightAnswers.push(rightAnswer);
         setUserAnswer(rightAnswer.id, true);
         Statistics.handleAnswer(rightAnswer.id, Games.audio, true);
+        this.playSound(true);
       }
     }
   };
@@ -150,9 +162,9 @@ class AudioChallengeGame extends Control {
     this.playAudio(this.words[this.currentQuestion].audio);
   }
 
-  playAudio(audioSrc: string): void {
+  playAudio(src: string): void {
     const audio = new Control(this.variants.node, 'audio');
-    audio.node.setAttribute('src', `${baseURL}/${audioSrc}`);
+    audio.node.setAttribute('src', `${baseURL}/${src}`);
     audio.node.setAttribute('autoplay', 'true');
     audio.node.setAttribute('muted', 'true');
   }
