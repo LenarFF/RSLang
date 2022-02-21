@@ -3,8 +3,9 @@ import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
 import { GameResults } from '../../components/GameResults/GameResults';
-import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { baseURL, MAX_PAGES } from '../../constants/api';
 import { Statistics } from '../../core/statistics';
+import { state } from '../../state';
 import { audioSrc } from '../../data/sprint';
 import { IWord } from '../../types/interface';
 import { Games } from '../../types/statistics';
@@ -68,7 +69,7 @@ class AudioChallengeGame extends Control {
   };
 
   showNextQuestion(): void {
-    if (this.currentQuestion >= WORDS_ON_PAGE - 1) {
+    if (this.currentQuestion >= this.words.length - 1) {
       this.gameResults = new GameResults(
         this,
         this.rightAnswers,
@@ -130,7 +131,7 @@ class AudioChallengeGame extends Control {
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(String(group), String(page));
+    this.words = state.words ? state.words : await getWords(String(group), String(page));
     this.getAnswers();
   }
 
@@ -139,7 +140,7 @@ class AudioChallengeGame extends Control {
   getAnswers(): void {
     this.answers.push(this.words[this.currentQuestion]);
     while (this.answers.length < this.answersQuantity) {
-      const answer = this.words[this.getRandomNum(WORDS_ON_PAGE)];
+      const answer = this.words[this.getRandomNum(this.words.length)];
       if (!this.answers.includes(answer)) this.answers.push(answer);
     }
     this.shuffleArray(this.answers);
@@ -164,6 +165,7 @@ class AudioChallengeGame extends Control {
 
   playAudio(src: string): void {
     const audio = new Control(this.variants.node, 'audio');
+    (audio.node as HTMLAudioElement).volume = 0.5;
     audio.node.setAttribute('src', `${baseURL}/${src}`);
     audio.node.setAttribute('autoplay', 'true');
     audio.node.setAttribute('muted', 'true');

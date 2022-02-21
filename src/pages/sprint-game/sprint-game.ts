@@ -2,7 +2,7 @@ import { Control } from '../../components/Control';
 import { getWords } from '../../api/textbook';
 import { GameResults } from '../../components/GameResults/GameResults';
 import { Timer } from '../../components/Timer/Timer';
-import { MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { MAX_PAGES } from '../../constants/api';
 import { SPRINT_TIMER } from '../../constants/sprint';
 import { IWord } from '../../types/interface';
 import { audioSrc } from '../../data/sprint';
@@ -10,6 +10,7 @@ import './sprint-game.scss';
 import { setUserAnswer } from '../../api/games';
 import { Statistics } from '../../core/statistics';
 import { Games } from '../../types/statistics';
+import { state } from '../../state';
 
 export class SprintGame extends Control {
   words: IWord[];
@@ -169,7 +170,7 @@ export class SprintGame extends Control {
   }
 
   renderGameFields(nextNum: number): void {
-    if (this.currentQuestion > WORDS_ON_PAGE - 1) {
+    if (this.currentQuestion > this.words.length - 1) {
       this.timer.stop();
       document.removeEventListener('keydown', this.handleKey);
       this.gameResults = new GameResults(
@@ -197,7 +198,7 @@ export class SprintGame extends Control {
   }
 
   async getAllWords(group: number, page = this.getRandomNum(MAX_PAGES)): Promise<void> {
-    this.words = await getWords(String(group), String(page));
+    this.words = state.words ? state.words : await getWords(String(group), String(page));
     this.getAnswers();
   }
 

@@ -1,4 +1,5 @@
 @import '../../variables/colorVariables';
+@import '../../variables/mixins';
 
 .word-card {
   display: flex;
@@ -6,7 +7,7 @@
   width: 800px;
   margin: 10px auto;
   justify-content: space-between;
-  border: 2px solid transparent;
+  border: 5px solid transparent;
   box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.25),
     inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   &_1 {
@@ -31,10 +32,10 @@
     background-color: $groupBg7;
   }
   &_difficult {
-    border: 2px solid #c40404;
+    border: 5px solid #c40404;
   }
   &_studied {
-    border: 2px solid #12c412;
+    border: 5px solid #12c412;
   }
   &__img-wrap {
     height: 210px;
@@ -49,7 +50,7 @@
     width: 500px;
     font-size: 16px;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     &-en {
       margin-top: 5px;
     }
@@ -88,5 +89,11 @@
     justify-content: end;
     align-items: center;
     margin: 10px 0;
+  }
+  &__not-difficult-btn {
+    margin-right: 5px;
+    background-image: url(../../assets/img/not-difficult.png);
+    @include iconBtn;
+    
   }
 }

@@ -118,7 +118,7 @@ class WordCard extends Control {
     studiedBtn.node.addEventListener('click', () => this.handleStudied(wordID, [difficultBtn.node, studiedBtn.node]));
   }
 
-  disableButtons = (btns: Element[]): void => btns.forEach((btn) => btn.setAttribute('disabled', 'true'));
+  disableButtons = (btns: Element[]): void => btns.forEach((btn) => btn.classList.add('hidden'));
 
   handleDifficult(wordID: string, btns: Element[]): void {
     this.node.classList.remove('word-card_studied');

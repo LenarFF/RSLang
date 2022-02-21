@@ -2,12 +2,13 @@ import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import {
-  Filter, MAX_GROUP, MAX_PAGES,
+  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO, WORDS_ON_PAGE,
 } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
 import { Difficulty } from '../../constants/textbook';
+import { IWord } from '../../types/interface';
 
 export class TextbookPage extends Control {
   title = new Control(this.node, 'h2', 'textbook-page__title', 'Электронный учебник');
@@ -16,18 +17,15 @@ export class TextbookPage extends Control {
 
   page = 0;
 
+  words: IWord[] | [];
+
   pages = new Control(this.node, 'div', 'textbook-page__pages');
 
   leftBtn = new Control(this.pages.node, 'div', 'textbook-page__left-btn');
 
   pagesTitle = new Control(this.pages.node, 'p', 'textbook-page__pages-title', 'Страница ');
 
-  counter = new Control(
-    this.pagesTitle.node,
-    'span',
-    'textbook-page__pages-counter',
-    `${this.page + 1}`,
-  );
+  counter: Control;
 
   rightBtn = new Control(this.pages.node, 'div', 'textbook-page__right-btn');
 
@@ -37,37 +35,83 @@ export class TextbookPage extends Control {
 
   games = new Control(this.node, 'div', 'textbook-page__games');
 
-  sprintBtn = new Control(this.games.node, 'a', 'textbook-page__games-btn', 'Спринт');
+  sprintBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Спринт');
 
-  challengeBtn = new Control(this.games.node, 'a', 'textbook-page__games-btn', 'Аудиовызов');
+  challengeBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Аудиовызов');
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'textbook-page');
-
+    this.loadTextbookInfo();
     this.renderCards();
     this.renderGroup();
+
+    this.words = [];
+
+    this.counter = new Control(
+      this.pagesTitle.node,
+      'span',
+      'textbook-page__pages-counter',
+      `${this.page + 1}`,
+    );
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
     this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
-    this.challengeBtn.node.addEventListener('click', () => this.addWordInfo());
-    this.sprintBtn.node.addEventListener('click', () => this.addWordInfo());
-    this.sprintBtn.node.setAttribute('href', Href.SPRINT);
-    this.challengeBtn.node.setAttribute('href', Href.AUDIO);
+    this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
+    this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
+    window.addEventListener('beforeunload', () => this.saveTextbookInfo());
+    window.addEventListener('click', () => this.addLearnedStylePage());
+  }
+
+  addLearnedStylePage(): void {
+    const cards = [...this.cardField.node.children];
+    const markedCards = cards.filter(
+      (card) => card.classList.contains('word-card_difficult')
+        || card.classList.contains('word-card_studied'),
+    );
+    if (markedCards.length >= WORDS_ON_PAGE) {
+      this.pages.node.classList.add('textbook-page__marked');
+      this.challengeBtn.node.setAttribute('disabled', 'true');
+      this.sprintBtn.node.setAttribute('disabled', 'true');
+    } else {
+      this.pages.node.classList.remove('textbook-page__marked');
+      this.challengeBtn.node.removeAttribute('disabled');
+      this.sprintBtn.node.removeAttribute('disabled');
+    }
+  }
+
+  loadTextbookInfo(): void {
+    const localStorageInfo = localStorage.getItem(TEXTBOOK_INFO);
+    if (localStorageInfo) {
+      const info = JSON.parse(localStorageInfo);
+      this.group = info.group;
+      this.page = info.page;
+    }
+  }
+
+  saveTextbookInfo(): void {
+    localStorage.setItem(TEXTBOOK_INFO, JSON.stringify({ group: this.group, page: this.page }));
   }
 
   renderStatistics = (parent: HTMLElement, right: number, wrong: number): void => {
     const stat = new Control(parent, 'div', 'word-card__statistics');
     const title = new Control(null, 'h4', 'word-card__statistics-title', 'Ответы в играх');
-    const answers = new Control(null, 'p', 'word-card__statistics-count', `Верно: ${right} Неверно: ${wrong}`);
+    const answers = new Control(
+      null,
+      'p',
+      'word-card__statistics-count',
+      `Верно: ${right} Неверно: ${wrong}`,
+    );
     stat.node.append(title.node, answers.node);
   };
 
   async renderCards(): Promise<void> {
     const [words, userWords] = await Promise.all([
       getWords(String(this.group), String(this.page)),
-      getAggregatedWords(Filter.all, String(this.group), String(this.page)),
+      getAggregatedWords(Filter.all),
     ]);
+
+    this.words = words;
     this.cardField.node.innerHTML = '';
     words.map((word) => {
       const userWordData = userWords.filter((userWord) => userWord._id === word.id)[0];
@@ -91,6 +135,8 @@ export class TextbookPage extends Control {
       }
       return wordCard;
     });
+    this.addLearnedStylePage();
+    this.pages.node.classList.remove('hidden');
   }
 
   async renderDifficultCards(): Promise<void> {
@@ -99,6 +145,7 @@ export class TextbookPage extends Control {
     if (words) {
       words.map((word) => new WordCard(this.cardField.node, word, MAX_GROUP));
     }
+    this.pages.node.classList.add('hidden');
   }
 
   renderGroup(): void {
@@ -139,13 +186,37 @@ export class TextbookPage extends Control {
 
   selectGroup(target: HTMLElement): void {
     if (!target.dataset.num) return;
+    this.page = 0;
+    if (this.counter.node) this.counter.node.innerHTML = String(this.page + 1);
     this.group = Number(target.dataset.num) - 1;
     this.renderCards();
   }
 
-  addWordInfo(): void {
+  async addWordInfo(href: Href): Promise<void> {
+    this.challengeBtn.node.setAttribute('disabled', 'true');
+    this.sprintBtn.node.setAttribute('disabled', 'true');
     state.group = this.group;
     state.page = this.page;
-    window.location.hash = Href.GAMES;
+    const userWords = await getAggregatedWords(Filter.easy);
+    const easyWords = userWords.filter(
+      (userWord) => userWord.userWord?.difficulty === Difficulty.easy,
+    );
+    const easyWordsID = easyWords.map((item) => item._id);
+    const notEasyWords = this.words.filter((word) => {
+      if (word.id) {
+        return !easyWordsID.includes(word.id);
+      }
+      return undefined;
+    });
+
+    if (notEasyWords.length < WORDS_ON_PAGE / 2) {
+      this.page = this.page < MAX_PAGES ? this.page + 1 : 0;
+      const nextPageWords = await getWords(String(this.group), String(this.page));
+      this.words = [...this.words, ...nextPageWords];
+      this.addWordInfo(href);
+    } else {
+      state.words = notEasyWords.slice(0, WORDS_ON_PAGE - 1);
+      window.location.hash = href;
+    }
   }
 }
