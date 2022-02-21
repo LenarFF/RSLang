@@ -3,7 +3,7 @@
 .developer-card {
   display: flex;
   align-items: center;
-  width: 450px;
+  width: 500px;
   gap: 40px;
   &__image {
     height: 250px;
@@ -43,8 +43,10 @@
     }
   }
   &__description {
+    width: 200px;
     &-li {
       text-align: left;
+      padding: 5px;
     }
   }
 }
