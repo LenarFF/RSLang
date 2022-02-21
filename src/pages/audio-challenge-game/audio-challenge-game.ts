@@ -3,7 +3,7 @@ import { getWords } from '../../api/textbook';
 import { AnswerCard } from '../../components/AnswerCard/AnswerCard';
 import { Control } from '../../components/Control';
 import { GameResults } from '../../components/GameResults/GameResults';
-import { baseURL, MAX_PAGES, WORDS_ON_PAGE } from '../../constants/api';
+import { baseURL, MAX_PAGES } from '../../constants/api';
 import { Statistics } from '../../core/statistics';
 import { state } from '../../state';
 import { audioSrc } from '../../data/sprint';
@@ -165,7 +165,7 @@ class AudioChallengeGame extends Control {
 
   playAudio(src: string): void {
     const audio = new Control(this.variants.node, 'audio');
-    (audio.node as HTMLAudioElement).volume = 0.5;    
+    (audio.node as HTMLAudioElement).volume = 0.5;
     audio.node.setAttribute('src', `${baseURL}/${src}`);
     audio.node.setAttribute('autoplay', 'true');
     audio.node.setAttribute('muted', 'true');

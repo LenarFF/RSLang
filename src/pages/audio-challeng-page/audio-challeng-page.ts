@@ -13,7 +13,7 @@ class AudioChallengePage extends Control {
       const game = new AudioChallengeGame(state.group, this.select.node, state.page);
       this.node.append(game.node);
       state.group = null;
-      state.words = null
+      state.words = null;
     }
   }
 }

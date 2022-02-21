@@ -1,7 +1,9 @@
 import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
-import { Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO } from '../../constants/api';
+import {
+  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO,
+} from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
 import './textbookPage.scss';
@@ -55,15 +57,13 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) =>
-      this.selectGroup(e.target as HTMLElement),
-    );
+    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
     window.addEventListener('beforeunload', () => this.saveTextbookInfo());
   }
 
-  loadTextbookInfo() {
+  loadTextbookInfo(): void {
     const localStorageInfo = localStorage.getItem(TEXTBOOK_INFO);
     if (localStorageInfo) {
       const info = JSON.parse(localStorageInfo);
@@ -72,7 +72,7 @@ export class TextbookPage extends Control {
     }
   }
 
-  saveTextbookInfo() {
+  saveTextbookInfo(): void {
     localStorage.setItem(TEXTBOOK_INFO, JSON.stringify({ group: this.group, page: this.page }));
   }
 
@@ -185,9 +185,8 @@ export class TextbookPage extends Control {
       if (word.id) {
         return !easyWordsID.includes(word.id);
       }
+      return undefined;
     });
-    console.log(state.words, state.group);
-
     window.location.hash = href;
   }
 }

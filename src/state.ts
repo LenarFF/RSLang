@@ -1,4 +1,4 @@
-import { IWord } from "./types/interface";
+import { IWord } from './types/interface';
 
 interface IState {
   group: number | null;
@@ -9,7 +9,7 @@ interface IState {
 const state: IState = {
   group: null,
   page: null,
-  words: null
+  words: null,
 };
 
 export { state };
