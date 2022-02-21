@@ -85,10 +85,10 @@ export class SprintGame extends Control {
     });
     this.wrongBtn.node.setAttribute('data-answer', 'false');
     this.rightBtn.node.setAttribute('data-answer', 'true');
-    this.getAllWords(group, page);
     this.rightAnswers = [];
     this.wrongAnswers = [];
     this.answers = [];
+    this.getAllWords(group, page);
     this.audioRight.node.setAttribute('src', audioSrc.right);
     this.audioWrong.node.setAttribute('src', audioSrc.wrong);
     (this.audioRight.node as HTMLAudioElement).volume = 0.5;
@@ -162,7 +162,7 @@ export class SprintGame extends Control {
   }
 
   renderGameFields(nextNum: number): void {
-    if (this.currentQuestion > WORDS_ON_PAGE - 1) {
+    if (this.currentQuestion > this.words.length - 1) {
       this.timer.stop();
       this.gameResults = new GameResults(
         this,
