@@ -67,7 +67,7 @@ export class AuthorizationForm extends Control {
     if (localStorage.getItem(USER_DATA)) {
       document.querySelector('.authorization-button')?.classList.remove('authorization-button__active');
     }
-    localStorage.setItem(USER_DATA, '');
+    localStorage.clear();
     this.node.classList.toggle('form-container__active');
   }
 
