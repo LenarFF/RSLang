@@ -1,3 +1,4 @@
+import { GamesName } from '../../constants/textbook';
 import { IGameStat } from '../../types/statistics';
 import { Control } from '../Control';
 import './StatisticsCard.scss';
@@ -16,7 +17,8 @@ class StatisticsCard extends Control {
     const {
       answers, right, newWord, maxSeries,
     } = gameStat;
-    this.title = new Control(this.node, 'h3', 'statistics-card__title', title);
+    const titleName = title === GamesName.audio ? 'Аудиовызов' : 'Спринт';
+    this.title = new Control(this.node, 'h3', 'statistics-card__title', titleName);
 
     this.learnedWords = new Control(
       this.node,
