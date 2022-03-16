@@ -55,7 +55,7 @@ export class AuthorizationForm extends Control {
         break;
       case 'выход': this.onSignOut();
         break;
-      case 'регистрация': this.onLogIn(values);
+      case 'регистрация': this.onLogIn(values);      
         break;
       default:
         break;
@@ -68,6 +68,7 @@ export class AuthorizationForm extends Control {
       document.querySelector('.authorization-button')?.classList.remove('authorization-button__active');
     }
     localStorage.clear();
+     location.reload();
     this.node.classList.toggle('form-container__active');
   }
 
@@ -83,6 +84,7 @@ export class AuthorizationForm extends Control {
             this.node.classList.toggle('form-container__active');
             (this.form.node as HTMLFormElement).reset();
             document.querySelector('.authorization-button')?.classList.add('authorization-button__active');
+            location.reload();
           }
         })
         .catch((err) => new Error(err));
@@ -90,15 +92,16 @@ export class AuthorizationForm extends Control {
   }
 
   onLogIn(values: IValue):void {
-    this.onInputDataCheck(values);
-    if (this.passError.node.innerText === '' && this.mailError.node.innerText === '') {
+    this.onInputDataCheck(values);  
+    if (this.passError.node.innerText === '' && this.mailError.node.innerText === '') {      
       createUser(values)
         .then((res) => {
           if (typeof res === 'string') {
-            this.passError.node.innerText = res || '';
+            this.passError.node.innerText = res || ''; 
           } else {
             (this.form.node as HTMLFormElement).reset();
             this.passError.node.innerText = InputErrors.loginSuccess;
+            this.onSignIn(values);            
           }
           this.clearNotice();
         })

@@ -44,7 +44,7 @@ class Statistics {
   }
 
   setStat = async (): Promise<void> => {
-    const statResp = await getStatistics(Statistics.data);    
+    const statResp = await getStatistics(Statistics.data);
     Statistics.userWords = await getAggregatedWords(Filter.all);
 
     if (statResp) {

@@ -1,7 +1,7 @@
 export const loginInputs = [
   {
     span: 'Aдрес почты',
-    type: 'text',
+    type: 'email',
     name: 'email',
     placeholder: 'введите адрес почты',
     path: `M332.64 64.58C313.18 43.57 286 32 256 32c-30.16 0-57.43 11.5-76.8 32.38-19.58 21.11-29.12 49.8-26.88 

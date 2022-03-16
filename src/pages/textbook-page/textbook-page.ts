@@ -2,7 +2,12 @@ import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import {
-  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO, WORDS_ON_PAGE,
+  Filter,
+  MAX_GROUP,
+  MAX_PAGES,
+  TEXTBOOK_INFO,
+  USER_DATA,
+  WORDS_ON_PAGE,
 } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
@@ -56,7 +61,9 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
+    this.groupField.node.addEventListener('click', (e) =>
+      this.selectGroup(e.target as HTMLElement),
+    );
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
     window.addEventListener('beforeunload', () => this.saveTextbookInfo());
@@ -66,8 +73,9 @@ export class TextbookPage extends Control {
   addLearnedStylePage(): void {
     const cards = [...this.cardField.node.children];
     const markedCards = cards.filter(
-      (card) => card.classList.contains('word-card_difficult')
-        || card.classList.contains('word-card_studied'),
+      (card) =>
+        card.classList.contains('word-card_difficult') ||
+        card.classList.contains('word-card_studied'),
     );
     if (markedCards.length >= WORDS_ON_PAGE) {
       this.pages.node.classList.add('textbook-page__marked');
@@ -161,13 +169,15 @@ export class TextbookPage extends Control {
 
       return groupBtn;
     });
-    const difficultGroup = new Control(
-      this.groupField.node,
-      'button',
-      `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
-      '!',
-    );
-    difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
+    if (localStorage.getItem(USER_DATA)) {
+      const difficultGroup = new Control(
+        this.groupField.node,
+        'button',
+        `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
+        '!',
+      );
+      difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
+    }
   }
 
   handleLeft(): void {
