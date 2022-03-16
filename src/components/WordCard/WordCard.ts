@@ -89,7 +89,7 @@ class WordCard extends Control {
     if (_id) {
       this.setControlBtnDifficult(_id);
     } else if (id) {
-      if(localStorage.getItem(USER_DATA)) this.setControlBtns(id);
+      if (localStorage.getItem(USER_DATA)) this.setControlBtns(id);
     }
   }
 
@@ -109,7 +109,7 @@ class WordCard extends Control {
   }
 
   setControlBtns(wordID: string): void {
-      const difficultBtn = new Control(this.controls.node, 'button', 'word-card__difficult-btn');
+    const difficultBtn = new Control(this.controls.node, 'button', 'word-card__difficult-btn');
     const studiedBtn = new Control(this.controls.node, 'button', 'word-card__studied-btn');
     difficultBtn.node.setAttribute('title', 'Сложное слово');
     studiedBtn.node.setAttribute('title', 'Изученное слово');

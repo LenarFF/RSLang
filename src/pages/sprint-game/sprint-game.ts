@@ -110,7 +110,7 @@ export class SprintGame extends Control {
     };
   }
 
-  handleKey = (e: KeyboardEvent) => this.handleKeyboard(e);
+  handleKey = (e: KeyboardEvent): void => this.handleKeyboard(e);
 
   handleControl(e: MouseEvent): void {
     if ((e.target as HTMLElement).dataset.answer !== undefined) {
