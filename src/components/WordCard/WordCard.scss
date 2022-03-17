@@ -9,6 +9,18 @@
   justify-content: space-between;
   box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.25),
     inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+  }
+  @media (max-width: 850px) {
+    width: 300px;
+  }
+  @media (max-width: 500px) {
+    width: 200px;
+    margin-left: 10px;
+  }
   &_1 {
     background-color: $groupBg1;
   }
@@ -41,15 +53,21 @@
     width: 290px;
     overflow: hidden;
     margin: 5px;
+      @media (max-width: 500px) {
+    width: 190px;
+    display: flex;
+    justify-content: center;    
+  }
   }
   &__img {
     height: 210px;
   }
   &__text {
-    width: 500px;
+    width: 90%;
     font-size: 16px;
     display: flex;
     flex-direction: column;
+
     &-en {
       margin-top: 5px;
     }

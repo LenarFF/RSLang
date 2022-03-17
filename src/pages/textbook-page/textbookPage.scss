@@ -1,4 +1,3 @@
-
 @import '../../variables/colorVariables';
 
 .textbook-page {
@@ -6,6 +5,11 @@
   max-width: 1400px;
   text-align: center;
   min-height: 100vh;
+  &__title {
+    @media (max-width: 500px) {
+      margin-top: 70px;
+    }
+  }
   &__marked {
     background-color: rgb(19, 235, 19);
     border-radius: 30px;
@@ -16,6 +20,9 @@
     align-items: center;
     justify-content: space-between;
     margin: 20px auto;
+    @media (max-width: 500px) {
+      width: 270px;
+    }
   }
   &__left-btn,
   &__right-btn {
@@ -27,14 +34,11 @@
     background-repeat: no-repeat;
     cursor: pointer;
     border-radius: 30px;
-    box-shadow: 
-            5px 5px 7px rgba(0, 0, 0, 0.25), 
-      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.25),
       inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   }
   &__left-btn {
     background-image: url(../../assets/img/arrow-left.png);
-    
   }
   &__right-btn {
     background-image: url(../../assets/img/arrow-right.png);
@@ -47,6 +51,9 @@
     flex-direction: column;
     height: 400px;
     justify-content: space-between;
+    @media (max-width: 600px) {
+      top: 18%;
+    }
     &-btn {
       width: 50px;
       height: 50px;
@@ -54,10 +61,8 @@
       border: none;
       font-size: 32px;
       cursor: pointer;
-      box-shadow: 
-            5px 5px 7px rgba(0, 0, 0, 0.25), 
-      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
-      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+        inset -3px -3px 5px rgba(0, 0, 0, 0.5);
       &_1 {
         background-color: $groupBg1;
       }
@@ -89,6 +94,11 @@
     flex-direction: column;
     justify-content: space-between;
     height: 120px;
+    @media (max-width: 600px) {
+      top: 61%;
+      right: 6%;
+      height: 310px;
+    }
     &-btn {
       display: flex;
       justify-content: center;
@@ -103,10 +113,19 @@
       border-radius: 20px;
       cursor: pointer;
       background: #257b83;
-      box-shadow: 
-            5px 5px 7px rgba(0, 0, 0, 0.25), 
-      inset 2px 2px 5px rgba(255, 255, 255, 0.25),
-      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.25),
+        inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+      @media (max-width: 600px) {
+        padding: 5px 10px;
+        height: auto;
+        width: auto;
+      }
+    }
+    &-span {
+      @media (max-width: 600px) {
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+      }
     }
   }
 }

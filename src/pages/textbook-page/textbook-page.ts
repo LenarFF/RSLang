@@ -40,9 +40,18 @@ export class TextbookPage extends Control {
 
   games = new Control(this.node, 'div', 'textbook-page__games');
 
-  sprintBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Спринт');
+  sprintBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn');
 
-  challengeBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Аудиовызов');
+  sprintSpan = new Control(this.sprintBtn.node, 'span', 'textbook-page__games-span', 'Спринт');
+
+  challengeBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn');
+
+  challengeSpan = new Control(
+    this.challengeBtn.node,
+    'span',
+    'textbook-page__games-span',
+    'Аудиовызов',
+  );
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'textbook-page');
@@ -61,9 +70,12 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
+    this.groupField.node.addEventListener('click', (e) =>
+      this.selectGroup(e.target as HTMLElement),
+    );
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
+
     window.addEventListener('beforeunload', () => this.saveTextbookInfo());
     window.addEventListener('click', () => this.addLearnedStylePage());
   }
@@ -71,8 +83,9 @@ export class TextbookPage extends Control {
   addLearnedStylePage(): void {
     const cards = [...this.cardField.node.children];
     const markedCards = cards.filter(
-      (card) => card.classList.contains('word-card_difficult')
-        || card.classList.contains('word-card_studied'),
+      (card) =>
+        card.classList.contains('word-card_difficult') ||
+        card.classList.contains('word-card_studied'),
     );
     if (markedCards.length >= WORDS_ON_PAGE) {
       this.pages.node.classList.add('textbook-page__marked');

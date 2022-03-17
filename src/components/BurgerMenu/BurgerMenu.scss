@@ -1,0 +1,14 @@
+@import '../../variables/mixins';
+
+.burger-menu {
+  background-image: url(../../assets/img/hamburger-menu.svg);
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  @include iconBtn
+}
+
+.burger-menu_close {
+  background-image: url(../../assets/img/close.png);
+  @include iconBtn
+}
