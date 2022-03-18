@@ -70,9 +70,7 @@ export class TextbookPage extends Control {
 
     this.leftBtn.node.addEventListener('click', () => this.handleLeft());
     this.rightBtn.node.addEventListener('click', () => this.handleRight());
-    this.groupField.node.addEventListener('click', (e) =>
-      this.selectGroup(e.target as HTMLElement),
-    );
+    this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
 
@@ -83,9 +81,8 @@ export class TextbookPage extends Control {
   addLearnedStylePage(): void {
     const cards = [...this.cardField.node.children];
     const markedCards = cards.filter(
-      (card) =>
-        card.classList.contains('word-card_difficult') ||
-        card.classList.contains('word-card_studied'),
+      (card) => card.classList.contains('word-card_difficult')
+        || card.classList.contains('word-card_studied'),
     );
     if (markedCards.length >= WORDS_ON_PAGE) {
       this.pages.node.classList.add('textbook-page__marked');

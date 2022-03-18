@@ -1,4 +1,3 @@
-import { BurgerMenu } from '../../components/BurgerMenu/BurgerMenu';
 import { Control } from '../../components/Control';
 import { Href } from '../../constants/router-refs';
 import './aside-menu.scss';

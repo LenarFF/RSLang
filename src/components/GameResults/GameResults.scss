@@ -1,7 +1,9 @@
 @import '../../variables/mixins';
 
 .game-results {
-  width: 400px;
+  width: 60%;
+  max-width: 400px;
+  min-width: 270px;
   margin: 0 auto;
   height: 600px;
   overflow: auto;

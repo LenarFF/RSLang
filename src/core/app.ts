@@ -3,6 +3,7 @@ import { Aside } from './AsideMenu/aside-menu';
 import { AuthorizationButton } from '../components/AuthorizationButton/AuthorizationButton';
 import { AuthorizationForm } from '../components/AuthorizationForm/AuthorizationForm';
 import { BurgerMenu } from '../components/BurgerMenu/BurgerMenu';
+import { Href } from '../constants/router-refs';
 
 export class App {
   aside = new Aside(document.body, 'aside', 'aside hidden', '');
@@ -25,7 +26,7 @@ export class App {
   enableRouteChange = (): void => {
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
-      this.changeMenuLinkColor(currentRouteName);
+      this.changeMenuLinkColor(currentRouteName || Href.MAIN.slice(1));
       const currentRoute = routing.find((p) => p.name === currentRouteName);
       if (document.body.children.length > 1) {
         for (let i = document.body.children.length; i > 4; i--) {
