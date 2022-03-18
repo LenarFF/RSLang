@@ -7,7 +7,9 @@ import { USER_DATA } from '../../constants/api';
 import './AuthorizationForm.scss';
 
 export class AuthorizationForm extends Control {
-  form = new Control(this.node, 'form', 'form');
+  formContainer = new Control(this.node, 'div', 'form-container');
+
+  form = new Control(this.formContainer.node, 'form', 'form');
 
   formTitle = new Control(this.form.node, 'h3', '', 'RS LANG');
 
@@ -16,7 +18,7 @@ export class AuthorizationForm extends Control {
   passError: Control;
 
   constructor(parent: HTMLElement) {
-    super(parent, 'div', 'form-container');
+    super(parent, 'div', 'form-wrapper');
     const loginInputsMail = new LoginInput(this.form.node, 0);
     const loginInputsPass = new LoginInput(this.form.node, 1);
     this.mailError = new Control(null, 'div', 'error');
@@ -38,7 +40,7 @@ export class AuthorizationForm extends Control {
     };
   }
 
-  changeErrorBox(mailError = '', passError = ''):void {
+  changeErrorBox(mailError = '', passError = ''): void {
     this.mailError.node.innerText = mailError;
     this.passError.node.innerText = passError;
   }
@@ -51,27 +53,34 @@ export class AuthorizationForm extends Control {
     };
 
     switch (target?.getAttribute('value')) {
-      case 'вход': this.onSignIn(values);
+      case 'вход':
+        this.onSignIn(values);
         break;
-      case 'выход': this.onSignOut();
+      case 'выход':
+        this.onSignOut();
         break;
-      case 'регистрация': this.onLogIn(values);
+      case 'регистрация':
+        this.onLogIn(values);
         break;
       default:
         break;
     }
   }
 
-  onSignOut():void {
+  onSignOut(): void {
     this.changeErrorBox();
     if (localStorage.getItem(USER_DATA)) {
-      document.querySelector('.authorization-button')?.classList.remove('authorization-button__active');
+      document
+        .querySelector('.authorization-button')
+        ?.classList.remove('authorization-button__active');
     }
     localStorage.clear();
+    window.location.reload();
+    this.node.classList.add('hidden');
     this.node.classList.toggle('form-container__active');
   }
 
-  onSignIn(values: IValue):void {
+  onSignIn(values: IValue): void {
     this.onInputDataCheck(values);
     if (this.passError.node.innerText === '' && this.mailError.node.innerText === '') {
       loginUser(values)
@@ -82,14 +91,17 @@ export class AuthorizationForm extends Control {
             localStorage.setItem(USER_DATA, JSON.stringify(res));
             this.node.classList.toggle('form-container__active');
             (this.form.node as HTMLFormElement).reset();
-            document.querySelector('.authorization-button')?.classList.add('authorization-button__active');
+            document
+              .querySelector('.authorization-button')
+              ?.classList.add('authorization-button__active');
+            window.location.reload();
           }
         })
         .catch((err) => new Error(err));
     }
   }
 
-  onLogIn(values: IValue):void {
+  onLogIn(values: IValue): void {
     this.onInputDataCheck(values);
     if (this.passError.node.innerText === '' && this.mailError.node.innerText === '') {
       createUser(values)
@@ -99,6 +111,7 @@ export class AuthorizationForm extends Control {
           } else {
             (this.form.node as HTMLFormElement).reset();
             this.passError.node.innerText = InputErrors.loginSuccess;
+            this.onSignIn(values);
           }
           this.clearNotice();
         })
@@ -106,7 +119,7 @@ export class AuthorizationForm extends Control {
     }
   }
 
-  onInputDataCheck(values: IValue):void {
+  onInputDataCheck(values: IValue): void {
     const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     if (values.password === '') {
       this.changeErrorBox(this.mailError.node.innerText, InputErrors.empty);
@@ -124,7 +137,7 @@ export class AuthorizationForm extends Control {
     }
   }
 
-  clearNotice():void {
+  clearNotice(): void {
     setTimeout(() => {
       this.passError.node.innerText = '';
     }, 2000);

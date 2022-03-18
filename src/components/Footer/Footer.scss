@@ -7,16 +7,23 @@
   background-color: rgb(58, 58, 165);
   align-items: center;
   color: $lightFontColor;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    height: 160px;
+  }
   &__logo {
     background-image: url(../../assets/img/rss.svg);
     background-position: center;
     background-size: cover;
     width: 110px;
-    height: 40px;
+    height: 41px;
     cursor: pointer;
   }
   &__year {
     font-size: 26px;
+    @media (max-width: 600px) {
+      font-size: 20px;
+    }
   }
   &__githubs {
     display: flex;
@@ -24,6 +31,9 @@
     justify-content: space-around;
     height: 100%;
     list-style: none;
+    @media (max-width: 600px) {
+      height: 50px;
+    }
     &-li {
       cursor: pointer;
     }

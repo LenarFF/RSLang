@@ -1,12 +1,15 @@
+@import '../../variables/mixins';
+
 .aside {
   display: flex;
   flex-direction: column;
   width: 300px;
   position: absolute;
   top: 0;
+  z-index: 1;
 }
 .nav {
-  padding-top: 30px;
+  padding-top: 10px;
   padding-left: 10px;
 }
 .menu-container {
@@ -16,18 +19,17 @@
   background: #257b83;
   border-radius: 30px;
   padding: 15px;
-  box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25),
-              10px 10px 70px rgba(0, 0, 0, 0.25),
-              inset 5px 5px 10px rgba(0, 0, 0, 0.5),
-              inset 5px 5px 20px rgba(255, 255, 255, 0.2),
-              inset -5px -5px 15px rgba(0, 0, 0, 0.75);
+  padding-top: 30px;
+  box-shadow: 25px 25px 75px rgba(0, 0, 0, 0.25), 10px 10px 70px rgba(0, 0, 0, 0.25),
+    inset 5px 5px 10px rgba(0, 0, 0, 0.5), inset 5px 5px 20px rgba(255, 255, 255, 0.2),
+    inset -5px -5px 15px rgba(0, 0, 0, 0.75);
   & .menu-item {
     position: relative;
     display: flex;
     align-items: center;
     margin: 20px 0;
     cursor: pointer;
-    transition: .5s;
+    transition: 0.5s;
   }
   & .menu-item::before {
     content: '';
@@ -39,9 +41,8 @@
     height: 45px;
     border-radius: 22.5px;
     background: #3a3aa5;
-    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25),
-                inset 2px 2px 5px rgba(255, 255, 255, 0.2),
-                inset -3px -3px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.25), inset 2px 2px 5px rgba(255, 255, 255, 0.2),
+      inset -3px -3px 5px rgba(0, 0, 0, 0.5);
   }
   & .menu-item:hover::before {
     width: 100%;
@@ -65,7 +66,7 @@
     background: #257b83;
     border-radius: 30px;
     transform: scale(0);
-    transition: .5s;
+    transition: 0.5s;
   }
   & .menu-item:hover .rank::before {
     transform: scale(1);
@@ -77,7 +78,7 @@
     font-weight: 600;
     color: #fff;
     font-size: 1em;
-    transition: .5s;
+    transition: 0.5s;
     background-size: contain;
   }
   & .menu-item .menu-name {
@@ -87,8 +88,11 @@
   & .menu-item .menu-name a {
     font-weight: 600;
     color: #bcbcc0;
-    transition: .5s;
+    transition: 0.5s;
     width: 100%;
+  }
+  & .menu-item .menu-name .current-item {
+    color: #fff;
   }
   & .menu-item:hover .menu-name a {
     color: #fff;
@@ -99,7 +103,7 @@
     bottom: -14px;
     left: -56px;
     position: absolute;
-    content: "";
+    content: '';
     height: 45px;
     width: 190px;
   }

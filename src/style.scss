@@ -9,9 +9,12 @@
 body {
   overflow-x: hidden;
   font-size: 1.1em;
-  height: 100vh;
+  min-height: 100vh;
   justify-content: space-between;
 }
 .hidden {
   display: none;
+}
+.block {
+  display: block;
 }

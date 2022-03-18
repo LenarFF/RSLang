@@ -1,5 +1,5 @@
 import { setDifficult, updateDifficult } from '../../api/textbook';
-import { baseURL } from '../../constants/api';
+import { baseURL, USER_DATA } from '../../constants/api';
 import { Difficulty } from '../../constants/textbook';
 import { Statistics } from '../../core/statistics';
 import { IWord } from '../../types/interface';
@@ -89,7 +89,7 @@ class WordCard extends Control {
     if (_id) {
       this.setControlBtnDifficult(_id);
     } else if (id) {
-      this.setControlBtns(id);
+      if (localStorage.getItem(USER_DATA)) this.setControlBtns(id);
     }
   }
 

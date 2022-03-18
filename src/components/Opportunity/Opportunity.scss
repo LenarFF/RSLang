@@ -2,5 +2,9 @@
   width: 200px;
   &__img {
     height: 100px;
+       @media (max-width: 1000px) {
+      height: 60px;
+    }
   }
+
 }

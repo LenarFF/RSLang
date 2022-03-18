@@ -29,6 +29,7 @@
     right: 50%;
     transform: translate(50%);
     border-radius: 10px;
+    min-width: 270px;
   }
   &__word {
     text-transform: uppercase;

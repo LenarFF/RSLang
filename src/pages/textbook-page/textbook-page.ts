@@ -2,7 +2,12 @@ import { getAggregatedWords, getWords } from '../../api/textbook';
 import { Control } from '../../components/Control';
 import { WordCard } from '../../components/WordCard/WordCard';
 import {
-  Filter, MAX_GROUP, MAX_PAGES, TEXTBOOK_INFO, WORDS_ON_PAGE,
+  Filter,
+  MAX_GROUP,
+  MAX_PAGES,
+  TEXTBOOK_INFO,
+  USER_DATA,
+  WORDS_ON_PAGE,
 } from '../../constants/api';
 import { state } from '../../state';
 import { Href } from '../../constants/router-refs';
@@ -35,9 +40,18 @@ export class TextbookPage extends Control {
 
   games = new Control(this.node, 'div', 'textbook-page__games');
 
-  sprintBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Спринт');
+  sprintBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn');
 
-  challengeBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn', 'Аудиовызов');
+  sprintSpan = new Control(this.sprintBtn.node, 'span', 'textbook-page__games-span', 'Спринт');
+
+  challengeBtn = new Control(this.games.node, 'button', 'textbook-page__games-btn');
+
+  challengeSpan = new Control(
+    this.challengeBtn.node,
+    'span',
+    'textbook-page__games-span',
+    'Аудиовызов',
+  );
 
   constructor(parent: HTMLElement) {
     super(parent, 'main', 'textbook-page');
@@ -59,6 +73,7 @@ export class TextbookPage extends Control {
     this.groupField.node.addEventListener('click', (e) => this.selectGroup(e.target as HTMLElement));
     this.challengeBtn.node.addEventListener('click', () => this.addWordInfo(Href.AUDIO));
     this.sprintBtn.node.addEventListener('click', () => this.addWordInfo(Href.SPRINT));
+
     window.addEventListener('beforeunload', () => this.saveTextbookInfo());
     window.addEventListener('click', () => this.addLearnedStylePage());
   }
@@ -161,13 +176,15 @@ export class TextbookPage extends Control {
 
       return groupBtn;
     });
-    const difficultGroup = new Control(
-      this.groupField.node,
-      'button',
-      `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
-      '!',
-    );
-    difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
+    if (localStorage.getItem(USER_DATA)) {
+      const difficultGroup = new Control(
+        this.groupField.node,
+        'button',
+        `textbook-page__groupfield-btn textbook-page__groupfield-btn_${MAX_GROUP + 1}`,
+        '!',
+      );
+      difficultGroup.node.addEventListener('click', () => this.renderDifficultCards());
+    }
   }
 
   handleLeft(): void {
